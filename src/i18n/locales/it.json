@@ -1,6 +1,9 @@
 {
   "actions": {
     "addSubscription": "Aggiungi abbonamento",
+    "cancel": "Annulla",
+    "close": "Chiudi",
+    "filter": "Filtra",
     "notifications": "Notifiche"
   },
   "app": {
@@ -39,8 +42,45 @@
     "loading": "Caricamento"
   },
   "subscriptions": {
+    "actions": {
+      "cancel": "Annulla",
+      "delete": "Elimina"
+    },
     "emptyMessage": "Aggiungi il primo pagamento ricorrente per iniziare a tracciare i rinnovi.",
     "emptyTitle": "Nessun abbonamento",
+    "filters": {
+      "all": "Tutti",
+      "clear": "Cancella filtri",
+      "search": "Cerca",
+      "status": "Stato"
+    },
+    "form": {
+      "category": "Categoria",
+      "currency": "Valuta",
+      "frequency": "Frequenza",
+      "name": "Servizio",
+      "none": "Nessuno",
+      "notes": "Note",
+      "notesPlaceholder": "Promemoria opzionale per te",
+      "paymentMethod": "Metodo di pagamento",
+      "price": "Prezzo",
+      "renews": "Rinnova",
+      "save": "Salva abbonamento",
+      "saving": "Salvataggio...",
+      "subtitle": "Salva i dettagli necessari per tracciare i rinnovi.",
+      "title": "Nuovo abbonamento"
+    },
+    "frequency": {
+      "monthly": "Mensile",
+      "quarterly": "Trimestrale",
+      "weekly": "Settimanale",
+      "yearly": "Annuale"
+    },
+    "renews": "Rinnova",
+    "status": {
+      "active": "Attivo",
+      "cancelled": "Annullato"
+    },
     "subtitle": "Traccia rinnovi, categorie e metodi di pagamento su ogni dimensione di schermo.",
     "title": "Abbonamenti"
   }

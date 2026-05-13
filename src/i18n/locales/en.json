@@ -1,6 +1,9 @@
 {
   "actions": {
     "addSubscription": "Add subscription",
+    "cancel": "Cancel",
+    "close": "Close",
+    "filter": "Filter",
     "notifications": "Notifications"
   },
   "app": {
@@ -39,8 +42,45 @@
     "loading": "Loading"
   },
   "subscriptions": {
+    "actions": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "emptyMessage": "Add your first recurring payment to start tracking renewals.",
     "emptyTitle": "No subscriptions yet",
+    "filters": {
+      "all": "All",
+      "clear": "Clear filters",
+      "search": "Search",
+      "status": "Status"
+    },
+    "form": {
+      "category": "Category",
+      "currency": "Currency",
+      "frequency": "Frequency",
+      "name": "Service",
+      "none": "None",
+      "notes": "Notes",
+      "notesPlaceholder": "Optional reminder for yourself",
+      "paymentMethod": "Payment method",
+      "price": "Price",
+      "renews": "Renews",
+      "save": "Save subscription",
+      "saving": "Saving...",
+      "subtitle": "Save the billing details you need for renewal tracking.",
+      "title": "New subscription"
+    },
+    "frequency": {
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "weekly": "Weekly",
+      "yearly": "Yearly"
+    },
+    "renews": "Renews",
+    "status": {
+      "active": "Active",
+      "cancelled": "Cancelled"
+    },
     "subtitle": "Track renewals, categories, and payment methods across every screen size.",
     "title": "Subscriptions"
   }

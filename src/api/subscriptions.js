@@ -11,3 +11,24 @@ export async function getSubscriptions(filters = {}) {
   const data = await apiRequest(`/api/subscriptions${suffix}`);
   return data.subscriptions;
 }
+
+export async function createSubscription(details) {
+  const data = await apiRequest('/api/subscriptions', {
+    method: 'POST',
+    body: JSON.stringify(details),
+  });
+  return data.subscription;
+}
+
+export async function cancelSubscription(id) {
+  const data = await apiRequest(`/api/subscriptions/${id}/cancel`, {
+    method: 'POST',
+  });
+  return data.subscription;
+}
+
+export async function deleteSubscription(id) {
+  await apiRequest(`/api/subscriptions/${id}`, {
+    method: 'DELETE',
+  });
+}

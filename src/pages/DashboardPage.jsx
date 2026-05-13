@@ -1,5 +1,6 @@
 import { Plus, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 import ServiceLogo from '../components/ServiceLogo.jsx';
 
@@ -11,6 +12,7 @@ const categoryData = [
 
 export default function DashboardPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <section className="space-y-5 lg:space-y-6">
@@ -33,6 +35,7 @@ export default function DashboardPage() {
 
         <button
           type="button"
+          onClick={() => navigate('/subscriptions?action=add')}
           className="flex w-full items-center justify-center gap-2 rounded-2xl bg-mint px-4 py-4 font-black text-ink lg:min-h-full lg:flex-col lg:text-lg"
         >
           <Plus size={20} className="lg:size-8" />
