@@ -4,6 +4,7 @@
     "notifications": "Notifications"
   },
   "app": {
+    "loading": "Loading PayTrack",
     "name": "PayTrack",
     "tagline": "Recurring money, under control"
   },
@@ -11,9 +12,11 @@
     "createAccount": "Create account",
     "email": "Email",
     "login": "Log in",
+    "name": "Name",
     "password": "Password",
     "registerTitle": "Start tracking renewals",
-    "signInTitle": "Welcome back"
+    "signInTitle": "Welcome back",
+    "submitting": "Loading..."
   },
   "dashboard": {
     "monthlySpend": "Monthly spend",

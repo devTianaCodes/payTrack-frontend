@@ -4,6 +4,7 @@
     "notifications": "Notifiche"
   },
   "app": {
+    "loading": "Caricamento PayTrack",
     "name": "PayTrack",
     "tagline": "Pagamenti ricorrenti sotto controllo"
   },
@@ -11,9 +12,11 @@
     "createAccount": "Crea account",
     "email": "Email",
     "login": "Accedi",
+    "name": "Nome",
     "password": "Password",
     "registerTitle": "Inizia a tracciare i rinnovi",
-    "signInTitle": "Bentornato"
+    "signInTitle": "Bentornato",
+    "submitting": "Caricamento..."
   },
   "dashboard": {
     "monthlySpend": "Spesa mensile",
