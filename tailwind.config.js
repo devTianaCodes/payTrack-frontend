@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
@@ -9,6 +10,8 @@ export default {
         coral: '#FF6B5F',
         sage: '#EAF7EF',
         mist: '#F6FBF8',
+        fog: '#64748B',
+        graphite: '#334155',
       },
       boxShadow: {
         soft: '0 18px 45px rgba(16, 24, 40, 0.10)',

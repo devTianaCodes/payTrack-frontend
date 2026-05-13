@@ -12,12 +12,12 @@ export default function App() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-sage text-ink">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl bg-mist shadow-soft lg:my-6 lg:min-h-[calc(100vh-3rem)] lg:overflow-hidden lg:rounded-[2rem]">
-        <aside className="hidden w-72 flex-col border-r border-emerald-100 bg-white/85 px-5 py-6 md:flex">
+    <div className="min-h-screen bg-sage text-ink transition-colors dark:bg-slate-600 dark:text-slate-100">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl bg-mist shadow-soft transition-colors dark:bg-slate-500 lg:my-6 lg:min-h-[calc(100vh-3rem)] lg:overflow-hidden lg:rounded-[2rem]">
+        <aside className="hidden w-72 flex-col border-r border-emerald-100 bg-white/85 px-5 py-6 transition-colors dark:border-slate-600 dark:bg-slate-700/80 md:flex">
           <div>
             <p className="text-sm font-semibold text-mint">{t('app.tagline')}</p>
-            <h1 className="text-3xl font-black tracking-tight">{t('app.name')}</h1>
+            <h1 className="text-3xl font-black tracking-tight text-ink dark:text-white">{t('app.name')}</h1>
           </div>
 
           <nav className="mt-8 space-y-2">
@@ -28,11 +28,11 @@ export default function App() {
         </aside>
 
         <div className="flex min-h-screen flex-1 flex-col lg:min-h-0">
-          <header className="sticky top-0 z-10 border-b border-emerald-100 bg-mist/95 px-5 py-4 backdrop-blur md:hidden">
+          <header className="sticky top-0 z-10 border-b border-emerald-100 bg-mist/95 px-5 py-4 backdrop-blur transition-colors dark:border-slate-600 dark:bg-slate-500/95 md:hidden">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-mint">{t('app.tagline')}</p>
-                <h1 className="text-2xl font-black tracking-tight">{t('app.name')}</h1>
+                <h1 className="text-2xl font-black tracking-tight text-ink dark:text-white">{t('app.name')}</h1>
               </div>
               <button
                 type="button"
@@ -48,7 +48,7 @@ export default function App() {
             <Outlet />
           </main>
 
-          <nav className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur md:hidden">
+          <nav className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur transition-colors dark:border-slate-600 dark:bg-slate-500/95 md:hidden">
             <div className="grid grid-cols-3 gap-2">
               {navItems.map((item) => (
                 <NavItem key={item.to} item={item} label={t(item.labelKey)} />
@@ -70,7 +70,7 @@ function NavItem({ item, label }) {
       className={({ isActive }) =>
         [
           'flex min-h-14 flex-col items-center justify-center rounded-2xl text-xs font-bold transition',
-          isActive ? 'bg-mint text-ink' : 'text-slate-500',
+          isActive ? 'bg-mint text-ink' : 'text-slate-500 dark:text-slate-200',
         ].join(' ')
       }
     >
@@ -89,7 +89,7 @@ function SidebarNavItem({ item, label }) {
       className={({ isActive }) =>
         [
           'flex min-h-12 items-center gap-3 rounded-2xl px-4 text-sm font-black transition',
-          isActive ? 'bg-mint text-ink' : 'text-slate-500 hover:bg-sage hover:text-ink',
+          isActive ? 'bg-mint text-ink' : 'text-slate-500 hover:bg-sage hover:text-ink dark:text-slate-200 dark:hover:bg-slate-600 dark:hover:text-white',
         ].join(' ')
       }
     >

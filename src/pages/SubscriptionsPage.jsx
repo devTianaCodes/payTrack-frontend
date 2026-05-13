@@ -178,14 +178,14 @@ export default function SubscriptionsPage() {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 className="text-2xl font-black md:text-3xl">{t('subscriptions.title')}</h2>
-          <p className="mt-1 hidden text-sm font-bold text-slate-500 md:block">
+          <p className="mt-1 hidden text-sm font-bold text-slate-500 dark:text-slate-300 md:block">
             {t('subscriptions.subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
           <button
             type="button"
-            className="rounded-full border border-slate-200 p-3"
+            className="rounded-full border border-slate-200 p-3 dark:border-slate-500 dark:bg-slate-700"
             aria-label={t('actions.filter')}
             onClick={() => setIsFilterOpen((current) => !current)}
           >
@@ -252,7 +252,7 @@ function SubscriptionFilters({ categories, filters, onChange, onClear, paymentMe
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4 md:p-5">
+    <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4 transition-colors dark:border-slate-600 dark:bg-slate-700/75 md:p-5">
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         <FormField label={t('subscriptions.filters.status')}>
           <select
@@ -303,7 +303,7 @@ function SubscriptionFilters({ categories, filters, onChange, onClear, paymentMe
         </FormField>
       </div>
       <div className="mt-4 flex justify-end">
-        <button type="button" className="rounded-2xl bg-sage px-5 py-3 font-black text-ink" onClick={onClear}>
+        <button type="button" className="rounded-2xl bg-sage px-5 py-3 font-black text-ink dark:bg-slate-600 dark:text-white" onClick={onClear}>
           {t('subscriptions.filters.clear')}
         </button>
       </div>
@@ -325,15 +325,15 @@ function SubscriptionForm({
 
   return (
     <form
-      className="rounded-[2rem] border border-emerald-100 bg-white/90 p-4 shadow-soft md:p-5"
+      className="rounded-[2rem] border border-emerald-100 bg-white/90 p-4 shadow-soft transition-colors dark:border-slate-600 dark:bg-slate-700/80 md:p-5"
       onSubmit={onSubmit}
     >
       <div className="flex items-center justify-between gap-3">
         <div>
           <h3 className="text-lg font-black">{t('subscriptions.form.title')}</h3>
-          <p className="text-sm font-bold text-slate-500">{t('subscriptions.form.subtitle')}</p>
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-300">{t('subscriptions.form.subtitle')}</p>
         </div>
-        <button type="button" className="rounded-full bg-sage p-2 text-ink" onClick={onClose} aria-label={t('actions.close')}>
+        <button type="button" className="rounded-full bg-sage p-2 text-ink dark:bg-slate-600 dark:text-white" onClick={onClose} aria-label={t('actions.close')}>
           <X size={18} />
         </button>
       </div>
@@ -438,10 +438,10 @@ function SubscriptionForm({
       {error ? <p className="mt-4 rounded-2xl bg-coral/10 px-4 py-3 text-sm font-bold text-coral">{error}</p> : null}
 
       <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-end">
-        <button type="button" className="rounded-2xl bg-sage px-5 py-3 font-black text-ink" onClick={onClose}>
+        <button type="button" className="rounded-2xl bg-sage px-5 py-3 font-black text-ink dark:bg-slate-600 dark:text-white" onClick={onClose}>
           {t('actions.cancel')}
         </button>
-        <button type="submit" className="rounded-2xl bg-ink px-5 py-3 font-black text-white" disabled={isSaving}>
+        <button type="submit" className="rounded-2xl bg-ink px-5 py-3 font-black text-white dark:bg-mint dark:text-ink" disabled={isSaving}>
           {isSaving ? t('subscriptions.form.saving') : t('subscriptions.form.save')}
         </button>
       </div>
@@ -452,7 +452,7 @@ function SubscriptionForm({
 function FormField({ children, className = '', label }) {
   return (
     <label className={`block ${className}`}>
-      <span className="text-xs font-black uppercase text-slate-500">{label}</span>
+      <span className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">{label}</span>
       {children}
     </label>
   );
@@ -465,32 +465,32 @@ function SubscriptionCard({ actionId, onCancel, onDelete, subscription }) {
   const status = subscription.status ?? 'active';
 
   return (
-    <article className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4">
+    <article className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4 transition-colors dark:border-slate-600 dark:bg-slate-700/75">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <ServiceLogo name={subscription.name} />
           <div>
             <h3 className="font-black">{subscription.name}</h3>
-            <p className="text-sm font-bold text-slate-500">{subscription.category?.name ?? 'Uncategorized'}</p>
+            <p className="text-sm font-bold text-slate-500 dark:text-slate-300">{subscription.category?.name ?? 'Uncategorized'}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="font-black text-ink">{formatMoney(subscription.price, subscription.currency)}</p>
+          <p className="font-black text-ink dark:text-white">{formatMoney(subscription.price, subscription.currency)}</p>
           <p className={status === 'active' ? 'text-xs font-black text-mint' : 'text-xs font-black text-coral'}>
             {t(`subscriptions.status.${status}`)}
           </p>
         </div>
       </div>
-      <div className="mt-4 rounded-2xl bg-sage px-4 py-3 text-sm font-bold text-slate-600">
+      <div className="mt-4 rounded-2xl bg-sage px-4 py-3 text-sm font-bold text-slate-600 transition-colors dark:bg-slate-600 dark:text-slate-100">
         <p>{t('subscriptions.renews')} {formatDate(subscription.nextRenewalDate)}</p>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-300">
           {subscription.paymentMethod?.name ?? t('subscriptions.form.paymentMethod')}
         </p>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button
           type="button"
-          className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-sage px-3 text-sm font-black text-ink disabled:opacity-40"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-sage px-3 text-sm font-black text-ink disabled:opacity-40 dark:bg-slate-600 dark:text-white"
           disabled={isDemo || isBusy || status === 'cancelled'}
           onClick={() => onCancel(subscription)}
         >
@@ -569,4 +569,4 @@ function getTomorrowDate() {
 }
 
 const inputClassName =
-  'mt-2 w-full rounded-2xl border border-emerald-100 bg-mist px-4 py-3 font-bold text-ink outline-none transition focus:border-mint focus:bg-white';
+  'mt-2 w-full rounded-2xl border border-emerald-100 bg-mist px-4 py-3 font-bold text-ink outline-none transition focus:border-mint focus:bg-white dark:border-slate-600 dark:bg-slate-600 dark:text-white dark:focus:bg-slate-500';

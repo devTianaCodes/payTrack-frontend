@@ -35,6 +35,8 @@
   },
   "settings": {
     "currency": "Valuta predefinita",
+    "darkMode": "Modalità scura",
+    "darkModeDescription": "Usa un'interfaccia grigia più decisa.",
     "language": "Lingua",
     "name": "Nome visualizzato",
     "save": "Salva impostazioni",

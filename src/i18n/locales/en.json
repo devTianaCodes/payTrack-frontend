@@ -35,6 +35,8 @@
   },
   "settings": {
     "currency": "Default currency",
+    "darkMode": "Dark mode",
+    "darkModeDescription": "Use a deeper gray interface.",
     "language": "Language",
     "name": "Display name",
     "save": "Save settings",

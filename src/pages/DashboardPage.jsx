@@ -64,7 +64,7 @@ export default function DashboardPage() {
       {error ? <StateMessage title={t('states.error')} message={error} /> : null}
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
-        <div className="rounded-[2rem] bg-ink p-5 text-white md:p-6">
+        <div className="rounded-[2rem] bg-ink p-5 text-white shadow-soft dark:bg-slate-800 md:p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-sm font-bold text-mint">{t('dashboard.monthlySpend')}</p>
@@ -93,7 +93,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_380px]">
-        <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 md:p-6">
+        <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 transition-colors dark:border-slate-600 dark:bg-slate-700/75 md:p-6">
           <h2 className="text-lg font-black">{t('dashboard.renewals')}</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-1">
             {upcomingRenewals.map((subscription) => (
@@ -102,7 +102,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 md:p-6">
+        <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 transition-colors dark:border-slate-600 dark:bg-slate-700/75 md:p-6">
           <h2 className="text-lg font-black">{t('dashboard.spendingMix')}</h2>
           <div className="h-52">
             <ResponsiveContainer width="100%" height="100%">
@@ -132,12 +132,12 @@ function Metric({ label, value }) {
 
 function Renewal({ subscription }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-sage p-4 text-ink">
+    <div className="flex items-center justify-between rounded-2xl bg-sage p-4 text-ink transition-colors dark:bg-slate-600 dark:text-white">
       <div className="flex items-center gap-3">
         <ServiceLogo name={subscription.name} />
         <div>
           <p className="font-black">{subscription.name}</p>
-          <p className="text-sm font-bold text-slate-500">{formatDate(subscription.nextRenewalDate)}</p>
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-300">{formatDate(subscription.nextRenewalDate)}</p>
         </div>
       </div>
       <p className="font-black text-coral">{formatMoney(subscription.price, subscription.currency)}</p>

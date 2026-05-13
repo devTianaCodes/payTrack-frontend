@@ -9,9 +9,9 @@ export default function ProtectedRoute() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sage px-5 text-ink">
-        <div className="rounded-[2rem] bg-mist p-6 text-center shadow-soft">
-          <p className="text-sm font-bold text-slate-500">{t('app.loading')}</p>
+      <div className="flex min-h-screen items-center justify-center bg-sage px-5 text-ink dark:bg-slate-600 dark:text-white">
+        <div className="rounded-[2rem] bg-mist p-6 text-center shadow-soft dark:bg-slate-700">
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-300">{t('app.loading')}</p>
         </div>
       </div>
     );
