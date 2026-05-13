@@ -1,6 +1,7 @@
 import { Plus, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import ServiceLogo from '../components/ServiceLogo.jsx';
 
 const categoryData = [
   { name: 'Entertainment', value: 42, color: '#2EE59D' },
@@ -76,9 +77,12 @@ function Metric({ label, value }) {
 function Renewal({ name, date, amount }) {
   return (
     <div className="flex items-center justify-between rounded-2xl bg-slate-50 p-4 text-ink">
-      <div>
-        <p className="font-black">{name}</p>
-        <p className="text-sm font-bold text-slate-500">{date}</p>
+      <div className="flex items-center gap-3">
+        <ServiceLogo name={name} />
+        <div>
+          <p className="font-black">{name}</p>
+          <p className="text-sm font-bold text-slate-500">{date}</p>
+        </div>
       </div>
       <p className="font-black text-coral">{amount}</p>
     </div>

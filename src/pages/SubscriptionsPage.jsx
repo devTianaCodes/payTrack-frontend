@@ -1,5 +1,6 @@
 import { Filter, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ServiceLogo from '../components/ServiceLogo.jsx';
 
 const subscriptions = [
   { name: 'Netflix', category: 'Entertainment', amount: '$15.99', renewal: 'May 18' },
@@ -28,9 +29,12 @@ export default function SubscriptionsPage() {
         {subscriptions.map((subscription) => (
           <article key={subscription.name} className="rounded-[2rem] border border-slate-100 p-4">
             <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="font-black">{subscription.name}</h3>
-                <p className="text-sm font-bold text-slate-500">{subscription.category}</p>
+              <div className="flex items-center gap-3">
+                <ServiceLogo name={subscription.name} />
+                <div>
+                  <h3 className="font-black">{subscription.name}</h3>
+                  <p className="text-sm font-bold text-slate-500">{subscription.category}</p>
+                </div>
               </div>
               <p className="font-black text-ink">{subscription.amount}</p>
             </div>
