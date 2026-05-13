@@ -34,7 +34,13 @@
     "language": "Lingua",
     "title": "Impostazioni"
   },
+  "states": {
+    "error": "Qualcosa è andato storto",
+    "loading": "Caricamento"
+  },
   "subscriptions": {
+    "emptyMessage": "Aggiungi il primo pagamento ricorrente per iniziare a tracciare i rinnovi.",
+    "emptyTitle": "Nessun abbonamento",
     "title": "Abbonamenti"
   }
 }

@@ -34,7 +34,13 @@
     "language": "Language",
     "title": "Settings"
   },
+  "states": {
+    "error": "Something went wrong",
+    "loading": "Loading"
+  },
   "subscriptions": {
+    "emptyMessage": "Add your first recurring payment to start tracking renewals.",
+    "emptyTitle": "No subscriptions yet",
     "title": "Subscriptions"
   }
 }
