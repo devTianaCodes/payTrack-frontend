@@ -12,35 +12,50 @@ export default function App() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-ink">
-      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-white shadow-soft">
-        <header className="sticky top-0 z-10 border-b border-slate-100 bg-white/95 px-5 py-4 backdrop-blur">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold text-mint">{t('app.tagline')}</p>
-              <h1 className="text-2xl font-black tracking-tight">{t('app.name')}</h1>
-            </div>
-            <button
-              type="button"
-              className="rounded-full bg-ink p-3 text-white shadow-soft"
-              aria-label={t('actions.notifications')}
-            >
-              <Bell size={20} />
-            </button>
+    <div className="min-h-screen bg-sage text-ink">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl bg-mist shadow-soft lg:my-6 lg:min-h-[calc(100vh-3rem)] lg:overflow-hidden lg:rounded-[2rem]">
+        <aside className="hidden w-72 flex-col border-r border-emerald-100 bg-white/85 px-5 py-6 md:flex">
+          <div>
+            <p className="text-sm font-semibold text-mint">{t('app.tagline')}</p>
+            <h1 className="text-3xl font-black tracking-tight">{t('app.name')}</h1>
           </div>
-        </header>
 
-        <main className="flex-1 px-5 py-5">
-          <Outlet />
-        </main>
-
-        <nav className="sticky bottom-0 border-t border-slate-100 bg-white px-4 py-3">
-          <div className="grid grid-cols-3 gap-2">
+          <nav className="mt-8 space-y-2">
             {navItems.map((item) => (
-              <NavItem key={item.to} item={item} label={t(item.labelKey)} />
+              <SidebarNavItem key={item.to} item={item} label={t(item.labelKey)} />
             ))}
-          </div>
-        </nav>
+          </nav>
+        </aside>
+
+        <div className="flex min-h-screen flex-1 flex-col lg:min-h-0">
+          <header className="sticky top-0 z-10 border-b border-emerald-100 bg-mist/95 px-5 py-4 backdrop-blur md:hidden">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-mint">{t('app.tagline')}</p>
+                <h1 className="text-2xl font-black tracking-tight">{t('app.name')}</h1>
+              </div>
+              <button
+                type="button"
+                className="rounded-full bg-ink p-3 text-white shadow-soft"
+                aria-label={t('actions.notifications')}
+              >
+                <Bell size={20} />
+              </button>
+            </div>
+          </header>
+
+          <main className="flex-1 px-5 py-5 md:px-8 md:py-8 lg:overflow-y-auto">
+            <Outlet />
+          </main>
+
+          <nav className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur md:hidden">
+            <div className="grid grid-cols-3 gap-2">
+              {navItems.map((item) => (
+                <NavItem key={item.to} item={item} label={t(item.labelKey)} />
+              ))}
+            </div>
+          </nav>
+        </div>
       </div>
     </div>
   );
@@ -60,6 +75,25 @@ function NavItem({ item, label }) {
       }
     >
       <Icon size={19} />
+      <span>{label}</span>
+    </NavLink>
+  );
+}
+
+function SidebarNavItem({ item, label }) {
+  const Icon = item.icon;
+
+  return (
+    <NavLink
+      to={item.to}
+      className={({ isActive }) =>
+        [
+          'flex min-h-12 items-center gap-3 rounded-2xl px-4 text-sm font-black transition',
+          isActive ? 'bg-mint text-ink' : 'text-slate-500 hover:bg-sage hover:text-ink',
+        ].join(' ')
+      }
+    >
+      <Icon size={20} />
       <span>{label}</span>
     </NavLink>
   );

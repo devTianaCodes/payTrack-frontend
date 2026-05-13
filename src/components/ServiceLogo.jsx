@@ -1,4 +1,4 @@
-import { Dumbbell } from 'lucide-react';
+import { Dumbbell, Sparkles } from 'lucide-react';
 import { siFigma, siIcloud, siNetflix, siSpotify } from 'simple-icons';
 
 const brandIcons = {
@@ -12,6 +12,8 @@ export default function ServiceLogo({ name, className = '' }) {
   const icon = brandIcons[normalizeName(name)];
 
   if (!icon) {
+    const FallbackIcon = normalizeName(name) === 'wakingup' ? Sparkles : Dumbbell;
+
     return (
       <span
         className={[
@@ -20,7 +22,7 @@ export default function ServiceLogo({ name, className = '' }) {
         ].join(' ')}
         aria-hidden="true"
       >
-        <Dumbbell size={20} />
+        <FallbackIcon size={20} />
       </span>
     );
   }

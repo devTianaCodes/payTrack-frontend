@@ -7,6 +7,8 @@ export default {
         ink: '#101828',
         mint: '#2EE59D',
         coral: '#FF6B5F',
+        sage: '#EAF7EF',
+        mist: '#F6FBF8',
       },
       boxShadow: {
         soft: '0 18px 45px rgba(16, 24, 40, 0.10)',

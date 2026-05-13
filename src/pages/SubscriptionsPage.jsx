@@ -23,6 +23,14 @@ const demoSubscriptions = [
     nextRenewalDate: '2026-06-02T00:00:00.000Z',
   },
   {
+    id: 'demo-waking-up',
+    name: 'Waking Up',
+    category: { name: 'Education' },
+    price: 14.99,
+    currency: 'USD',
+    nextRenewalDate: '2026-06-05T00:00:00.000Z',
+  },
+  {
     id: 'demo-gym',
     name: 'Gym',
     category: { name: 'Fitness' },
@@ -61,8 +69,13 @@ export default function SubscriptionsPage() {
 
   return (
     <section className="space-y-5">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="text-2xl font-black">{t('subscriptions.title')}</h2>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 className="text-2xl font-black md:text-3xl">{t('subscriptions.title')}</h2>
+          <p className="mt-1 hidden text-sm font-bold text-slate-500 md:block">
+            {t('subscriptions.subtitle')}
+          </p>
+        </div>
         <div className="flex gap-2">
           <button type="button" className="rounded-full border border-slate-200 p-3" aria-label="Filter">
             <Filter size={19} />
@@ -80,7 +93,7 @@ export default function SubscriptionsPage() {
       ) : null}
 
       {!isLoading && !error ? (
-        <div className="space-y-3">
+        <div className="grid gap-3 lg:grid-cols-2 2xl:grid-cols-3">
           {rows.map((subscription) => (
             <SubscriptionCard key={subscription.id} subscription={subscription} />
           ))}
@@ -92,7 +105,7 @@ export default function SubscriptionsPage() {
 
 function SubscriptionCard({ subscription }) {
   return (
-    <article className="rounded-[2rem] border border-slate-100 p-4">
+    <article className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <ServiceLogo name={subscription.name} />
@@ -103,7 +116,7 @@ function SubscriptionCard({ subscription }) {
         </div>
         <p className="font-black text-ink">{formatMoney(subscription.price, subscription.currency)}</p>
       </div>
-      <p className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600">
+      <p className="mt-4 rounded-2xl bg-sage px-4 py-3 text-sm font-bold text-slate-600">
         Renews {formatDate(subscription.nextRenewalDate)}
       </p>
     </article>

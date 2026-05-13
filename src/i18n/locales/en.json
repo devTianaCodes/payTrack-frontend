@@ -41,6 +41,7 @@
   "subscriptions": {
     "emptyMessage": "Add your first recurring payment to start tracking renewals.",
     "emptyTitle": "No subscriptions yet",
+    "subtitle": "Track renewals, categories, and payment methods across every screen size.",
     "title": "Subscriptions"
   }
 }

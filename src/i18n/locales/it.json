@@ -41,6 +41,7 @@
   "subscriptions": {
     "emptyMessage": "Aggiungi il primo pagamento ricorrente per iniziare a tracciare i rinnovi.",
     "emptyTitle": "Nessun abbonamento",
+    "subtitle": "Traccia rinnovi, categorie e metodi di pagamento su ogni dimensione di schermo.",
     "title": "Abbonamenti"
   }
 }
