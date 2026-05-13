@@ -1,0 +1,96 @@
+{
+  "actions": {
+    "addSubscription": "Добавить подписку",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "filter": "Фильтр",
+    "notifications": "Уведомления"
+  },
+  "app": {
+    "loading": "Загрузка PayTrack",
+    "name": "PayTrack",
+    "tagline": "Регулярные расходы под контролем"
+  },
+  "auth": {
+    "createAccount": "Создать аккаунт",
+    "email": "Email",
+    "login": "Войти",
+    "name": "Имя",
+    "password": "Пароль",
+    "registerTitle": "Начните отслеживать продления",
+    "signInTitle": "С возвращением",
+    "submitting": "Загрузка..."
+  },
+  "dashboard": {
+    "activeSubscriptions": "Активные подписки",
+    "monthlySpend": "Расходы в месяц",
+    "renewals": "Ближайшие продления",
+    "spendingMix": "Структура расходов",
+    "yearlyProjection": "Прогноз на год"
+  },
+  "navigation": {
+    "dashboard": "Главная",
+    "settings": "Настройки",
+    "subscriptions": "Подписки"
+  },
+  "settings": {
+    "currency": "Валюта по умолчанию",
+    "darkMode": "Темный режим",
+    "darkModeDescription": "Использовать более выраженный серый интерфейс.",
+    "language": "Язык",
+    "name": "Отображаемое имя",
+    "save": "Сохранить настройки",
+    "saved": "Настройки сохранены",
+    "saving": "Сохранение...",
+    "subtitle": "Настройте аккаунт под ваш способ отслеживания продлений.",
+    "timezone": "Часовой пояс",
+    "title": "Настройки"
+  },
+  "states": {
+    "error": "Что-то пошло не так",
+    "loading": "Загрузка"
+  },
+  "subscriptions": {
+    "actions": {
+      "cancel": "Отменить",
+      "delete": "Удалить"
+    },
+    "emptyMessage": "Добавьте первый регулярный платеж, чтобы отслеживать продления.",
+    "emptyTitle": "Подписок пока нет",
+    "filters": {
+      "all": "Все",
+      "clear": "Сбросить фильтры",
+      "search": "Поиск",
+      "status": "Статус"
+    },
+    "form": {
+      "category": "Категория",
+      "currency": "Валюта",
+      "frequency": "Периодичность",
+      "name": "Сервис",
+      "none": "Нет",
+      "notes": "Заметки",
+      "notesPlaceholder": "Необязательное напоминание для себя",
+      "paymentMethod": "Способ оплаты",
+      "price": "Цена",
+      "renews": "Продление",
+      "save": "Сохранить подписку",
+      "saving": "Сохранение...",
+      "subtitle": "Сохраните данные оплаты, нужные для отслеживания продлений.",
+      "title": "Новая подписка"
+    },
+    "frequency": {
+      "monthly": "Ежемесячно",
+      "quarterly": "Ежеквартально",
+      "weekly": "Еженедельно",
+      "yearly": "Ежегодно"
+    },
+    "renews": "Продление",
+    "status": {
+      "active": "Активна",
+      "cancelled": "Отменена"
+    },
+    "subtitle": "Отслеживайте продления, категории и способы оплаты на любом экране.",
+    "title": "Подписки"
+  }
+}

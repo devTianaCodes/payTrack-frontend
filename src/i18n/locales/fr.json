@@ -1,0 +1,96 @@
+{
+  "actions": {
+    "addSubscription": "Ajouter un abonnement",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "filter": "Filtrer",
+    "notifications": "Notifications"
+  },
+  "app": {
+    "loading": "Chargement de PayTrack",
+    "name": "PayTrack",
+    "tagline": "Dépenses récurrentes sous contrôle"
+  },
+  "auth": {
+    "createAccount": "Créer un compte",
+    "email": "E-mail",
+    "login": "Se connecter",
+    "name": "Nom",
+    "password": "Mot de passe",
+    "registerTitle": "Commencez à suivre vos renouvellements",
+    "signInTitle": "Bon retour",
+    "submitting": "Chargement..."
+  },
+  "dashboard": {
+    "activeSubscriptions": "Abonnements actifs",
+    "monthlySpend": "Dépense mensuelle",
+    "renewals": "Renouvellements à venir",
+    "spendingMix": "Répartition des dépenses",
+    "yearlyProjection": "Projection annuelle"
+  },
+  "navigation": {
+    "dashboard": "Accueil",
+    "settings": "Réglages",
+    "subscriptions": "Abonn."
+  },
+  "settings": {
+    "currency": "Devise par défaut",
+    "darkMode": "Mode sombre",
+    "darkModeDescription": "Utiliser une interface grise plus marquée.",
+    "language": "Langue",
+    "name": "Nom affiché",
+    "save": "Enregistrer les réglages",
+    "saved": "Réglages enregistrés",
+    "saving": "Enregistrement...",
+    "subtitle": "Gardez les préférences du compte alignées avec votre suivi des renouvellements.",
+    "timezone": "Fuseau horaire",
+    "title": "Réglages"
+  },
+  "states": {
+    "error": "Une erreur est survenue",
+    "loading": "Chargement"
+  },
+  "subscriptions": {
+    "actions": {
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    },
+    "emptyMessage": "Ajoutez votre premier paiement récurrent pour suivre les renouvellements.",
+    "emptyTitle": "Aucun abonnement",
+    "filters": {
+      "all": "Tous",
+      "clear": "Effacer les filtres",
+      "search": "Rechercher",
+      "status": "Statut"
+    },
+    "form": {
+      "category": "Catégorie",
+      "currency": "Devise",
+      "frequency": "Fréquence",
+      "name": "Service",
+      "none": "Aucun",
+      "notes": "Notes",
+      "notesPlaceholder": "Rappel optionnel pour vous",
+      "paymentMethod": "Méthode de paiement",
+      "price": "Prix",
+      "renews": "Renouvelle",
+      "save": "Enregistrer l'abonnement",
+      "saving": "Enregistrement...",
+      "subtitle": "Enregistrez les détails de facturation nécessaires au suivi.",
+      "title": "Nouvel abonnement"
+    },
+    "frequency": {
+      "monthly": "Mensuel",
+      "quarterly": "Trimestriel",
+      "weekly": "Hebdomadaire",
+      "yearly": "Annuel"
+    },
+    "renews": "Renouvelle",
+    "status": {
+      "active": "Actif",
+      "cancelled": "Annulé"
+    },
+    "subtitle": "Suivez renouvellements, catégories et méthodes de paiement sur tous les écrans.",
+    "title": "Abonnements"
+  }
+}

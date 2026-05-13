@@ -1,0 +1,96 @@
+{
+  "actions": {
+    "addSubscription": "Abo hinzufügen",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "filter": "Filtern",
+    "notifications": "Benachrichtigungen"
+  },
+  "app": {
+    "loading": "PayTrack wird geladen",
+    "name": "PayTrack",
+    "tagline": "Wiederkehrende Kosten im Griff"
+  },
+  "auth": {
+    "createAccount": "Konto erstellen",
+    "email": "E-Mail",
+    "login": "Anmelden",
+    "name": "Name",
+    "password": "Passwort",
+    "registerTitle": "Beginne, Verlängerungen zu verfolgen",
+    "signInTitle": "Willkommen zurück",
+    "submitting": "Laden..."
+  },
+  "dashboard": {
+    "activeSubscriptions": "Aktive Abos",
+    "monthlySpend": "Monatliche Ausgaben",
+    "renewals": "Anstehende Verlängerungen",
+    "spendingMix": "Ausgabenmix",
+    "yearlyProjection": "Jahresprognose"
+  },
+  "navigation": {
+    "dashboard": "Home",
+    "settings": "Einstell.",
+    "subscriptions": "Abos"
+  },
+  "settings": {
+    "currency": "Standardwährung",
+    "darkMode": "Dunkelmodus",
+    "darkModeDescription": "Eine kräftigere graue Oberfläche verwenden.",
+    "language": "Sprache",
+    "name": "Anzeigename",
+    "save": "Einstellungen speichern",
+    "saved": "Einstellungen gespeichert",
+    "saving": "Speichern...",
+    "subtitle": "Halte deine Kontostandards passend zu deiner Abo-Verwaltung.",
+    "timezone": "Zeitzone",
+    "title": "Einstellungen"
+  },
+  "states": {
+    "error": "Etwas ist schiefgelaufen",
+    "loading": "Laden"
+  },
+  "subscriptions": {
+    "actions": {
+      "cancel": "Kündigen",
+      "delete": "Löschen"
+    },
+    "emptyMessage": "Füge deine erste wiederkehrende Zahlung hinzu, um Verlängerungen zu verfolgen.",
+    "emptyTitle": "Noch keine Abos",
+    "filters": {
+      "all": "Alle",
+      "clear": "Filter löschen",
+      "search": "Suchen",
+      "status": "Status"
+    },
+    "form": {
+      "category": "Kategorie",
+      "currency": "Währung",
+      "frequency": "Häufigkeit",
+      "name": "Dienst",
+      "none": "Keine",
+      "notes": "Notizen",
+      "notesPlaceholder": "Optionale Erinnerung für dich",
+      "paymentMethod": "Zahlungsmethode",
+      "price": "Preis",
+      "renews": "Verlängert sich",
+      "save": "Abo speichern",
+      "saving": "Speichern...",
+      "subtitle": "Speichere die Abrechnungsdetails, die du für Verlängerungen brauchst.",
+      "title": "Neues Abo"
+    },
+    "frequency": {
+      "monthly": "Monatlich",
+      "quarterly": "Vierteljährlich",
+      "weekly": "Wöchentlich",
+      "yearly": "Jährlich"
+    },
+    "renews": "Verlängert sich",
+    "status": {
+      "active": "Aktiv",
+      "cancelled": "Gekündigt"
+    },
+    "subtitle": "Verfolge Verlängerungen, Kategorien und Zahlungsmethoden auf jeder Bildschirmgröße.",
+    "title": "Abos"
+  }
+}

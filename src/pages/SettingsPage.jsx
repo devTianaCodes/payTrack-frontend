@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../auth/AuthContext.jsx';
 import { currencyOptions, getCurrencyLabel } from '../constants/currencies.js';
+import { languageOptions } from '../constants/languages.js';
 import i18n from '../i18n/index.js';
 import { useTheme } from '../theme/ThemeContext.jsx';
 
@@ -71,8 +72,11 @@ export default function SettingsPage() {
               value={form.locale}
               onChange={(event) => updateField('locale', event.target.value)}
             >
-              <option value="en">English</option>
-              <option value="it">Italiano</option>
+              {languageOptions.map((language) => (
+                <option key={language.code} value={language.code}>
+                  {language.name}
+                </option>
+              ))}
             </select>
           </label>
 

@@ -1,0 +1,96 @@
+{
+  "actions": {
+    "addSubscription": "Adaugă abonament",
+    "cancel": "Anulează",
+    "close": "Închide",
+    "filter": "Filtrează",
+    "notifications": "Notificări"
+  },
+  "app": {
+    "loading": "Se încarcă PayTrack",
+    "name": "PayTrack",
+    "tagline": "Cheltuieli recurente sub control"
+  },
+  "auth": {
+    "createAccount": "Creează cont",
+    "email": "Email",
+    "login": "Autentificare",
+    "name": "Nume",
+    "password": "Parolă",
+    "registerTitle": "Începe să urmărești reînnoirile",
+    "signInTitle": "Bine ai revenit",
+    "submitting": "Se încarcă..."
+  },
+  "dashboard": {
+    "activeSubscriptions": "Abonamente active",
+    "monthlySpend": "Cheltuială lunară",
+    "renewals": "Reînnoiri viitoare",
+    "spendingMix": "Distribuția cheltuielilor",
+    "yearlyProjection": "Proiecție anuală"
+  },
+  "navigation": {
+    "dashboard": "Acasă",
+    "settings": "Setări",
+    "subscriptions": "Abon."
+  },
+  "settings": {
+    "currency": "Monedă implicită",
+    "darkMode": "Mod întunecat",
+    "darkModeDescription": "Folosește o interfață gri mai pronunțată.",
+    "language": "Limbă",
+    "name": "Nume afișat",
+    "save": "Salvează setările",
+    "saved": "Setări salvate",
+    "saving": "Se salvează...",
+    "subtitle": "Păstrează preferințele contului aliniate cu urmărirea reînnoirilor.",
+    "timezone": "Fus orar",
+    "title": "Setări"
+  },
+  "states": {
+    "error": "Ceva nu a mers bine",
+    "loading": "Se încarcă"
+  },
+  "subscriptions": {
+    "actions": {
+      "cancel": "Anulează",
+      "delete": "Șterge"
+    },
+    "emptyMessage": "Adaugă prima plată recurentă pentru a începe urmărirea reînnoirilor.",
+    "emptyTitle": "Niciun abonament",
+    "filters": {
+      "all": "Toate",
+      "clear": "Șterge filtrele",
+      "search": "Caută",
+      "status": "Stare"
+    },
+    "form": {
+      "category": "Categorie",
+      "currency": "Monedă",
+      "frequency": "Frecvență",
+      "name": "Serviciu",
+      "none": "Niciuna",
+      "notes": "Note",
+      "notesPlaceholder": "Memento opțional pentru tine",
+      "paymentMethod": "Metodă de plată",
+      "price": "Preț",
+      "renews": "Se reînnoiește",
+      "save": "Salvează abonamentul",
+      "saving": "Se salvează...",
+      "subtitle": "Salvează detaliile de facturare necesare pentru urmărirea reînnoirilor.",
+      "title": "Abonament nou"
+    },
+    "frequency": {
+      "monthly": "Lunar",
+      "quarterly": "Trimestrial",
+      "weekly": "Săptămânal",
+      "yearly": "Anual"
+    },
+    "renews": "Se reînnoiește",
+    "status": {
+      "active": "Activ",
+      "cancelled": "Anulat"
+    },
+    "subtitle": "Urmărește reînnoiri, categorii și metode de plată pe orice ecran.",
+    "title": "Abonamente"
+  }
+}
