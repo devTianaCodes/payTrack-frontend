@@ -1,5 +1,7 @@
+import { CreditCard, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { createPaymentMethod, deletePaymentMethod, getPaymentMethods } from '../api/paymentMethods.js';
 import { useAuth } from '../auth/AuthContext.jsx';
 import { currencyOptions, getCurrencyLabel } from '../constants/currencies.js';
 import { languageOptions } from '../constants/languages.js';
@@ -12,12 +14,31 @@ export default function SettingsPage() {
   const { isDarkMode, setDarkMode } = useTheme();
   const [form, setForm] = useState(() => getInitialForm(user, isDarkMode));
   const [isSaving, setIsSaving] = useState(false);
+  const [isPaymentSaving, setIsPaymentSaving] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [paymentMethodForm, setPaymentMethodForm] = useState(getInitialPaymentMethodForm);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
     setForm(getInitialForm(user, isDarkMode));
   }, [isDarkMode, user]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    getPaymentMethods()
+      .then((data) => {
+        if (isActive) setPaymentMethods(data);
+      })
+      .catch((requestError) => {
+        if (isActive) setError(requestError.message);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -39,6 +60,44 @@ export default function SettingsPage() {
       setError(requestError.message);
     } finally {
       setIsSaving(false);
+    }
+  }
+
+  function updatePaymentMethodField(field, value) {
+    setPaymentMethodForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function handlePaymentMethodSubmit(event) {
+    event.preventDefault();
+    setIsPaymentSaving(true);
+    setMessage('');
+    setError('');
+
+    try {
+      const createdPaymentMethod = await createPaymentMethod({
+        ...paymentMethodForm,
+        lastFour: paymentMethodForm.type === 'card' ? paymentMethodForm.lastFour || null : null,
+      });
+      setPaymentMethods((current) => [...current, createdPaymentMethod].sort(comparePaymentMethods));
+      setPaymentMethodForm(getInitialPaymentMethodForm());
+      setMessage(t('settings.paymentMethods.saved'));
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setIsPaymentSaving(false);
+    }
+  }
+
+  async function handlePaymentMethodDelete(paymentMethod) {
+    setError('');
+    setMessage('');
+
+    try {
+      await deletePaymentMethod(paymentMethod.id);
+      setPaymentMethods((current) => current.filter((item) => item.id !== paymentMethod.id));
+      setMessage(t('settings.paymentMethods.deleted'));
+    } catch (requestError) {
+      setError(requestError.message);
     }
   }
 
@@ -148,7 +207,114 @@ export default function SettingsPage() {
           </button>
         </div>
       </form>
+
+      <section className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 shadow-soft transition-colors dark:border-slate-600 dark:bg-slate-700/75">
+        <div>
+          <h3 className="text-lg font-black">{t('settings.paymentMethods.title')}</h3>
+          <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-300">
+            {t('settings.paymentMethods.subtitle')}
+          </p>
+        </div>
+
+        <form className="mt-5 grid gap-3 md:grid-cols-[1fr_160px_120px_auto]" onSubmit={handlePaymentMethodSubmit}>
+          <label className="block">
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">
+              {t('settings.paymentMethods.name')}
+            </span>
+            <input
+              className={inputClassName}
+              maxLength={80}
+              placeholder="Visa"
+              required
+              value={paymentMethodForm.name}
+              onChange={(event) => updatePaymentMethodField('name', event.target.value)}
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">
+              {t('settings.paymentMethods.type')}
+            </span>
+            <select
+              className={inputClassName}
+              value={paymentMethodForm.type}
+              onChange={(event) => updatePaymentMethodField('type', event.target.value)}
+            >
+              <option value="card">{t('settings.paymentMethods.types.card')}</option>
+              <option value="paypal">{t('settings.paymentMethods.types.paypal')}</option>
+              <option value="bank_account">{t('settings.paymentMethods.types.bankAccount')}</option>
+              <option value="cash">{t('settings.paymentMethods.types.cash')}</option>
+              <option value="other">{t('settings.paymentMethods.types.other')}</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">
+              {t('settings.paymentMethods.lastFour')}
+            </span>
+            <input
+              className={inputClassName}
+              disabled={paymentMethodForm.type !== 'card'}
+              inputMode="numeric"
+              maxLength={4}
+              pattern="[0-9]{4}"
+              placeholder="4242"
+              value={paymentMethodForm.lastFour}
+              onChange={(event) => updatePaymentMethodField('lastFour', event.target.value.replace(/\D/g, ''))}
+            />
+          </label>
+
+          <button
+            type="submit"
+            className="mt-7 flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-mint px-4 font-black text-ink disabled:opacity-60"
+            disabled={isPaymentSaving}
+          >
+            <Plus size={18} />
+            {isPaymentSaving ? t('settings.paymentMethods.saving') : t('settings.paymentMethods.add')}
+          </button>
+        </form>
+
+        <div className="mt-5 grid gap-3">
+          {paymentMethods.map((paymentMethod) => (
+            <PaymentMethodRow
+              key={paymentMethod.id}
+              onDelete={handlePaymentMethodDelete}
+              paymentMethod={paymentMethod}
+            />
+          ))}
+        </div>
+      </section>
     </section>
+  );
+}
+
+function PaymentMethodRow({ onDelete, paymentMethod }) {
+  const { t } = useTranslation();
+  const isCard = paymentMethod.type === 'card';
+  const displayName = isCard ? `${cleanCardName(paymentMethod.name)} ${maskCard(paymentMethod.lastFour)}` : paymentMethod.name;
+
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-2xl bg-mist p-4 transition-colors dark:bg-slate-600">
+      <div className="flex items-center gap-3">
+        <div className="rounded-full bg-white p-2 text-ink dark:bg-slate-700 dark:text-white">
+          <CreditCard size={18} />
+        </div>
+        <div>
+          <p className="font-black">{displayName}</p>
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-300">
+            {t(`settings.paymentMethods.types.${getPaymentMethodTypeKey(paymentMethod.type)}`)}
+          </p>
+        </div>
+      </div>
+      <button
+        type="button"
+        className="rounded-full bg-coral/10 p-3 text-coral"
+        aria-label={t('settings.paymentMethods.delete')}
+        onClick={() => onDelete(paymentMethod)}
+      >
+        <Trash2 size={18} />
+      </button>
+    </div>
   );
 }
 
@@ -160,6 +326,31 @@ function getInitialForm(user, isDarkMode) {
     timezone: user?.timezone ?? 'Europe/Rome',
     theme: isDarkMode ? 'dark' : 'light',
   };
+}
+
+function getInitialPaymentMethodForm() {
+  return {
+    name: '',
+    type: 'card',
+    lastFour: '',
+  };
+}
+
+function comparePaymentMethods(left, right) {
+  return left.name.localeCompare(right.name);
+}
+
+function cleanCardName(name) {
+  return name.replace(/\s+ending\s+\d{4}$/i, '').replace(/\s+\d{4}$/i, '').trim();
+}
+
+function maskCard(lastFour) {
+  return lastFour ? `**** ${lastFour}` : '****';
+}
+
+function getPaymentMethodTypeKey(type) {
+  if (type === 'bank_account') return 'bankAccount';
+  return type;
 }
 
 const inputClassName =

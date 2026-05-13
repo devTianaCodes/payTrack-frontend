@@ -39,6 +39,25 @@
     "darkModeDescription": "Folosește o interfață gri mai pronunțată.",
     "language": "Limbă",
     "name": "Nume afișat",
+    "paymentMethods": {
+      "add": "Adaugă",
+      "delete": "Șterge metoda de plată",
+      "deleted": "Metodă de plată ștearsă",
+      "lastFour": "Ultimele patru",
+      "name": "Nume",
+      "saved": "Metodă de plată salvată",
+      "saving": "Se salvează...",
+      "subtitle": "Salvează doar etichete simple, niciodată numere complete de card.",
+      "title": "Metode de plată",
+      "type": "Tip",
+      "types": {
+        "bankAccount": "Cont bancar",
+        "card": "Card",
+        "cash": "Numerar",
+        "other": "Altul",
+        "paypal": "PayPal"
+      }
+    },
     "save": "Salvează setările",
     "saved": "Setări salvate",
     "saving": "Se salvează...",
@@ -53,7 +72,8 @@
   "subscriptions": {
     "actions": {
       "cancel": "Anulează",
-      "delete": "Șterge"
+      "delete": "Șterge",
+      "manage": "Gestionează abonamentul"
     },
     "emptyMessage": "Adaugă prima plată recurentă pentru a începe urmărirea reînnoirilor.",
     "emptyTitle": "Niciun abonament",
@@ -84,6 +104,11 @@
       "quarterly": "Trimestrial",
       "weekly": "Săptămânal",
       "yearly": "Anual"
+    },
+    "manage": {
+      "demoNote": "Abonamentele demo nu pot fi modificate.",
+      "note": "Aici vor apărea mai multe instrumente de gestionare.",
+      "title": "Gestionare"
     },
     "renews": "Se reînnoiește",
     "status": {

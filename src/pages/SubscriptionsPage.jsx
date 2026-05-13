@@ -1,4 +1,4 @@
-import { Ban, Filter, Plus, Trash2, X } from 'lucide-react';
+import { Ban, CreditCard, Filter, Plus, Settings2, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ const demoSubscriptions = [
     category: { name: 'Entertainment' },
     price: 15.99,
     currency: 'USD',
-    paymentMethod: { name: 'Visa 4242' },
+    paymentMethod: { name: 'Visa', type: 'card', lastFour: '4242' },
     nextRenewalDate: '2026-05-18T00:00:00.000Z',
     status: 'active',
   },
@@ -32,7 +32,7 @@ const demoSubscriptions = [
     category: { name: 'Entertainment' },
     price: 10.99,
     currency: 'USD',
-    paymentMethod: { name: 'PayPal' },
+    paymentMethod: { name: 'PayPal', type: 'paypal' },
     nextRenewalDate: '2026-06-02T00:00:00.000Z',
     status: 'active',
   },
@@ -42,7 +42,7 @@ const demoSubscriptions = [
     category: { name: 'Education' },
     price: 14.99,
     currency: 'USD',
-    paymentMethod: { name: 'Mastercard 1188' },
+    paymentMethod: { name: 'Mastercard', type: 'card', lastFour: '1188' },
     nextRenewalDate: '2026-06-05T00:00:00.000Z',
     status: 'active',
   },
@@ -52,7 +52,7 @@ const demoSubscriptions = [
     category: { name: 'Fitness' },
     price: 45,
     currency: 'USD',
-    paymentMethod: { name: 'Visa 4242' },
+    paymentMethod: { name: 'Visa', type: 'card', lastFour: '4242' },
     nextRenewalDate: '2026-06-10T00:00:00.000Z',
     status: 'active',
   },
@@ -70,6 +70,7 @@ export default function SubscriptionsPage() {
   const [isAddOpen, setIsAddOpen] = useState(searchParams.get('action') === 'add');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [actionId, setActionId] = useState('');
+  const [openManageId, setOpenManageId] = useState('');
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
   const [form, setForm] = useState(() => getInitialForm(user?.defaultCurrency));
@@ -236,9 +237,13 @@ export default function SubscriptionsPage() {
           {rows.map((subscription) => (
             <SubscriptionCard
               actionId={actionId}
+              isManageOpen={openManageId === subscription.id}
               key={subscription.id}
               onCancel={handleCancel}
               onDelete={handleDelete}
+              onToggleManage={() =>
+                setOpenManageId((current) => (current === subscription.id ? '' : subscription.id))
+              }
               subscription={subscription}
             />
           ))}
@@ -458,7 +463,14 @@ function FormField({ children, className = '', label }) {
   );
 }
 
-function SubscriptionCard({ actionId, onCancel, onDelete, subscription }) {
+function SubscriptionCard({
+  actionId,
+  isManageOpen,
+  onCancel,
+  onDelete,
+  onToggleManage,
+  subscription,
+}) {
   const { t } = useTranslation();
   const isDemo = subscription.id.startsWith('demo-');
   const isBusy = actionId === subscription.id;
@@ -483,31 +495,63 @@ function SubscriptionCard({ actionId, onCancel, onDelete, subscription }) {
       </div>
       <div className="mt-4 rounded-2xl bg-sage px-4 py-3 text-sm font-bold text-slate-600 transition-colors dark:bg-slate-600 dark:text-slate-100">
         <p>{t('subscriptions.renews')} {formatDate(subscription.nextRenewalDate)}</p>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-300">
-          {subscription.paymentMethod?.name ?? t('subscriptions.form.paymentMethod')}
-        </p>
+        {subscription.paymentMethod ? <PaymentMethodBadge paymentMethod={subscription.paymentMethod} /> : null}
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-2">
+      <div className="mt-4">
         <button
           type="button"
-          className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-sage px-3 text-sm font-black text-ink disabled:opacity-40 dark:bg-slate-600 dark:text-white"
-          disabled={isDemo || isBusy || status === 'cancelled'}
-          onClick={() => onCancel(subscription)}
+          className="flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-ink px-3 text-sm font-black text-white transition hover:bg-slate-800 dark:bg-mint dark:text-ink dark:hover:bg-emerald-300"
+          aria-expanded={isManageOpen}
+          onClick={onToggleManage}
         >
-          <Ban size={16} />
-          {t('subscriptions.actions.cancel')}
-        </button>
-        <button
-          type="button"
-          className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-coral/10 px-3 text-sm font-black text-coral disabled:opacity-40"
-          disabled={isDemo || isBusy}
-          onClick={() => onDelete(subscription)}
-        >
-          <Trash2 size={16} />
-          {t('subscriptions.actions.delete')}
+          <Settings2 size={16} />
+          {t('subscriptions.actions.manage')}
         </button>
       </div>
+      {isManageOpen ? (
+        <div className="mt-3 rounded-2xl border border-slate-200 bg-white/70 p-3 transition-colors dark:border-slate-600 dark:bg-slate-800/60">
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">
+            {t('subscriptions.manage.title')}
+          </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <button
+              type="button"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-sage px-3 text-sm font-black text-ink disabled:opacity-40 dark:bg-slate-600 dark:text-white"
+              disabled={isDemo || isBusy || status === 'cancelled'}
+              onClick={() => onCancel(subscription)}
+            >
+              <Ban size={16} />
+              {t('subscriptions.actions.cancel')}
+            </button>
+            <button
+              type="button"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-coral/10 px-3 text-sm font-black text-coral disabled:opacity-40"
+              disabled={isDemo || isBusy}
+              onClick={() => onDelete(subscription)}
+            >
+              <Trash2 size={16} />
+              {t('subscriptions.actions.delete')}
+            </button>
+          </div>
+          <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-300">
+            {isDemo ? t('subscriptions.manage.demoNote') : t('subscriptions.manage.note')}
+          </p>
+        </div>
+      ) : null}
     </article>
+  );
+}
+
+function PaymentMethodBadge({ paymentMethod }) {
+  const isCard = paymentMethod.type === 'card';
+  const name = isCard ? getCardBrand(paymentMethod) : paymentMethod.name;
+  const label = isCard ? `${name} ${maskCard(paymentMethod.lastFour)}` : name;
+
+  return (
+    <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:bg-slate-700 dark:text-slate-200">
+      <CreditCard size={14} />
+      <span>{label}</span>
+    </div>
   );
 }
 
@@ -523,6 +567,17 @@ function formatDate(value) {
     month: 'short',
     day: 'numeric',
   }).format(new Date(value));
+}
+
+function maskCard(lastFour) {
+  return lastFour ? `**** ${lastFour}` : '****';
+}
+
+function getCardBrand(paymentMethod) {
+  return paymentMethod.name
+    .replace(/\s+ending\s+\d{4}$/i, '')
+    .replace(/\s+\d{4}$/i, '')
+    .trim();
 }
 
 function getInitialForm(defaultCurrency = 'USD') {

@@ -39,6 +39,25 @@
     "darkModeDescription": "Eine kräftigere graue Oberfläche verwenden.",
     "language": "Sprache",
     "name": "Anzeigename",
+    "paymentMethods": {
+      "add": "Hinzufügen",
+      "delete": "Zahlungsmethode löschen",
+      "deleted": "Zahlungsmethode gelöscht",
+      "lastFour": "Letzte vier",
+      "name": "Name",
+      "saved": "Zahlungsmethode gespeichert",
+      "saving": "Speichern...",
+      "subtitle": "Speichere nur einfache Labels, niemals vollständige Kartennummern.",
+      "title": "Zahlungsmethoden",
+      "type": "Typ",
+      "types": {
+        "bankAccount": "Bankkonto",
+        "card": "Karte",
+        "cash": "Bargeld",
+        "other": "Andere",
+        "paypal": "PayPal"
+      }
+    },
     "save": "Einstellungen speichern",
     "saved": "Einstellungen gespeichert",
     "saving": "Speichern...",
@@ -53,7 +72,8 @@
   "subscriptions": {
     "actions": {
       "cancel": "Kündigen",
-      "delete": "Löschen"
+      "delete": "Löschen",
+      "manage": "Abo verwalten"
     },
     "emptyMessage": "Füge deine erste wiederkehrende Zahlung hinzu, um Verlängerungen zu verfolgen.",
     "emptyTitle": "Noch keine Abos",
@@ -84,6 +104,11 @@
       "quarterly": "Vierteljährlich",
       "weekly": "Wöchentlich",
       "yearly": "Jährlich"
+    },
+    "manage": {
+      "demoNote": "Demo-Abos können nicht geändert werden.",
+      "note": "Weitere Verwaltungsfunktionen werden hier ergänzt.",
+      "title": "Verwaltung"
     },
     "renews": "Verlängert sich",
     "status": {

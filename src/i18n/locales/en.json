@@ -39,6 +39,25 @@
     "darkModeDescription": "Use a deeper gray interface.",
     "language": "Language",
     "name": "Display name",
+    "paymentMethods": {
+      "add": "Add",
+      "delete": "Delete payment method",
+      "deleted": "Payment method deleted",
+      "lastFour": "Last four",
+      "name": "Name",
+      "saved": "Payment method saved",
+      "saving": "Saving...",
+      "subtitle": "Save simple labels only, never full card numbers.",
+      "title": "Payment methods",
+      "type": "Type",
+      "types": {
+        "bankAccount": "Bank account",
+        "card": "Card",
+        "cash": "Cash",
+        "other": "Other",
+        "paypal": "PayPal"
+      }
+    },
     "save": "Save settings",
     "saved": "Settings saved",
     "saving": "Saving...",
@@ -53,7 +72,8 @@
   "subscriptions": {
     "actions": {
       "cancel": "Cancel",
-      "delete": "Delete"
+      "delete": "Delete",
+      "manage": "Manage subscription"
     },
     "emptyMessage": "Add your first recurring payment to start tracking renewals.",
     "emptyTitle": "No subscriptions yet",
@@ -84,6 +104,11 @@
       "quarterly": "Quarterly",
       "weekly": "Weekly",
       "yearly": "Yearly"
+    },
+    "manage": {
+      "demoNote": "Demo subscriptions cannot be changed.",
+      "note": "More management tools will live here as this screen grows.",
+      "title": "Management"
     },
     "renews": "Renews",
     "status": {

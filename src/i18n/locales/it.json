@@ -39,6 +39,25 @@
     "darkModeDescription": "Usa un'interfaccia grigia più decisa.",
     "language": "Lingua",
     "name": "Nome visualizzato",
+    "paymentMethods": {
+      "add": "Aggiungi",
+      "delete": "Elimina metodo di pagamento",
+      "deleted": "Metodo di pagamento eliminato",
+      "lastFour": "Ultime quattro",
+      "name": "Nome",
+      "saved": "Metodo di pagamento salvato",
+      "saving": "Salvataggio...",
+      "subtitle": "Salva solo etichette semplici, mai numeri completi della carta.",
+      "title": "Metodi di pagamento",
+      "type": "Tipo",
+      "types": {
+        "bankAccount": "Conto bancario",
+        "card": "Carta",
+        "cash": "Contanti",
+        "other": "Altro",
+        "paypal": "PayPal"
+      }
+    },
     "save": "Salva impostazioni",
     "saved": "Impostazioni salvate",
     "saving": "Salvataggio...",
@@ -53,7 +72,8 @@
   "subscriptions": {
     "actions": {
       "cancel": "Annulla",
-      "delete": "Elimina"
+      "delete": "Elimina",
+      "manage": "Gestisci abbonamento"
     },
     "emptyMessage": "Aggiungi il primo pagamento ricorrente per iniziare a tracciare i rinnovi.",
     "emptyTitle": "Nessun abbonamento",
@@ -84,6 +104,11 @@
       "quarterly": "Trimestrale",
       "weekly": "Settimanale",
       "yearly": "Annuale"
+    },
+    "manage": {
+      "demoNote": "Gli abbonamenti demo non possono essere modificati.",
+      "note": "Qui aggiungeremo altri strumenti di gestione.",
+      "title": "Gestione"
     },
     "renews": "Rinnova",
     "status": {

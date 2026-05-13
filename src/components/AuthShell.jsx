@@ -14,9 +14,9 @@ export default function AuthShell({
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-ink px-5 py-8 text-white">
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-md flex-col justify-between">
-        <div>
+    <div className="flex min-h-screen items-center justify-center bg-ink px-5 py-8 text-white">
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center">
           <p className="text-sm font-bold text-mint">PayTrack</p>
           <h1 className="mt-3 text-4xl font-black leading-tight">{title}</h1>
         </div>

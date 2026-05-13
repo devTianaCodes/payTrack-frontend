@@ -39,6 +39,25 @@
     "darkModeDescription": "Utiliser une interface grise plus marquée.",
     "language": "Langue",
     "name": "Nom affiché",
+    "paymentMethods": {
+      "add": "Ajouter",
+      "delete": "Supprimer la méthode de paiement",
+      "deleted": "Méthode de paiement supprimée",
+      "lastFour": "Quatre derniers",
+      "name": "Nom",
+      "saved": "Méthode de paiement enregistrée",
+      "saving": "Enregistrement...",
+      "subtitle": "Enregistrez seulement des libellés simples, jamais les numéros complets.",
+      "title": "Méthodes de paiement",
+      "type": "Type",
+      "types": {
+        "bankAccount": "Compte bancaire",
+        "card": "Carte",
+        "cash": "Espèces",
+        "other": "Autre",
+        "paypal": "PayPal"
+      }
+    },
     "save": "Enregistrer les réglages",
     "saved": "Réglages enregistrés",
     "saving": "Enregistrement...",
@@ -53,7 +72,8 @@
   "subscriptions": {
     "actions": {
       "cancel": "Annuler",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "manage": "Gérer l'abonnement"
     },
     "emptyMessage": "Ajoutez votre premier paiement récurrent pour suivre les renouvellements.",
     "emptyTitle": "Aucun abonnement",
@@ -84,6 +104,11 @@
       "quarterly": "Trimestriel",
       "weekly": "Hebdomadaire",
       "yearly": "Annuel"
+    },
+    "manage": {
+      "demoNote": "Les abonnements de démonstration ne peuvent pas être modifiés.",
+      "note": "D'autres outils de gestion seront ajoutés ici.",
+      "title": "Gestion"
     },
     "renews": "Renouvelle",
     "status": {
