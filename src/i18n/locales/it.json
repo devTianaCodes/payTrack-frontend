@@ -22,6 +22,7 @@
     "submitting": "Caricamento..."
   },
   "dashboard": {
+    "activeSubscriptions": "Abbonamenti attivi",
     "monthlySpend": "Spesa mensile",
     "renewals": "Rinnovi in arrivo",
     "spendingMix": "Distribuzione spese",
@@ -35,6 +36,12 @@
   "settings": {
     "currency": "Valuta predefinita",
     "language": "Lingua",
+    "name": "Nome visualizzato",
+    "save": "Salva impostazioni",
+    "saved": "Impostazioni salvate",
+    "saving": "Salvataggio...",
+    "subtitle": "Mantieni le impostazioni dell'account allineate al modo in cui tracci i rinnovi.",
+    "timezone": "Fuso orario",
     "title": "Impostazioni"
   },
   "states": {

@@ -10,8 +10,10 @@ import {
   deleteSubscription,
   getSubscriptions,
 } from '../api/subscriptions.js';
+import { useAuth } from '../auth/AuthContext.jsx';
 import ServiceLogo from '../components/ServiceLogo.jsx';
 import StateMessage from '../components/StateMessage.jsx';
+import { currencyOptions, getCurrencyLabel } from '../constants/currencies.js';
 
 const demoSubscriptions = [
   {
@@ -58,6 +60,7 @@ const demoSubscriptions = [
 
 export default function SubscriptionsPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [subscriptions, setSubscriptions] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -69,7 +72,7 @@ export default function SubscriptionsPage() {
   const [actionId, setActionId] = useState('');
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
-  const [form, setForm] = useState(getInitialForm);
+  const [form, setForm] = useState(() => getInitialForm(user?.defaultCurrency));
   const [filters, setFilters] = useState(getInitialFilters);
 
   useEffect(() => {
@@ -127,7 +130,7 @@ export default function SubscriptionsPage() {
         notes: form.notes || null,
       });
       setSubscriptions((current) => [createdSubscription, ...current]);
-      setForm(getInitialForm());
+      setForm(getInitialForm(user?.defaultCurrency));
       closeAddForm();
     } catch (requestError) {
       setFormError(requestError.message);
@@ -359,13 +362,18 @@ function SubscriptionForm({
           />
         </FormField>
         <FormField label={t('subscriptions.form.currency')}>
-          <input
+          <select
             required
             className={inputClassName}
-            maxLength={3}
             value={form.currency}
-            onChange={(event) => onChange('currency', event.target.value.toUpperCase())}
-          />
+            onChange={(event) => onChange('currency', event.target.value)}
+          >
+            {currencyOptions.map((currency) => (
+              <option key={currency.code} value={currency.code}>
+                {getCurrencyLabel(currency.code)}
+              </option>
+            ))}
+          </select>
         </FormField>
         <FormField label={t('subscriptions.form.renews')}>
           <input
@@ -517,11 +525,11 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
-function getInitialForm() {
+function getInitialForm(defaultCurrency = 'USD') {
   return {
     name: '',
     price: '',
-    currency: 'USD',
+    currency: defaultCurrency,
     billingFrequency: 'monthly',
     nextRenewalDate: getTomorrowDate(),
     categoryId: '',

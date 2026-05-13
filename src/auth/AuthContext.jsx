@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { apiRequest } from '../api/client.js';
+import { updateMe } from '../api/user.js';
 
 const AuthContext = createContext(null);
 
@@ -50,6 +51,11 @@ export function AuthProvider({ children }) {
       async logout() {
         await apiRequest('/api/auth/logout', { method: 'POST' });
         setUser(null);
+      },
+      async updateProfile(details) {
+        const updatedUser = await updateMe(details);
+        setUser(updatedUser);
+        return updatedUser;
       },
     }),
     [isLoading, user],

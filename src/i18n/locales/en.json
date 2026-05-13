@@ -22,6 +22,7 @@
     "submitting": "Loading..."
   },
   "dashboard": {
+    "activeSubscriptions": "Active subscriptions",
     "monthlySpend": "Monthly spend",
     "renewals": "Upcoming renewals",
     "spendingMix": "Spending mix",
@@ -35,6 +36,12 @@
   "settings": {
     "currency": "Default currency",
     "language": "Language",
+    "name": "Display name",
+    "save": "Save settings",
+    "saved": "Settings saved",
+    "saving": "Saving...",
+    "subtitle": "Keep your account defaults aligned with how you track renewals.",
+    "timezone": "Timezone",
     "title": "Settings"
   },
   "states": {
