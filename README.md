@@ -20,4 +20,4 @@ cp .env.example .env
 npm run dev
 ```
 
-The app runs on `http://localhost:5173`.
+The app runs on `http://localhost:5317`.
