@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "addSubscription": "Aggiungi abbonamento",
+    "notifications": "Notifiche"
+  },
+  "app": {
+    "name": "PayTrack",
+    "tagline": "Pagamenti ricorrenti sotto controllo"
+  },
+  "auth": {
+    "createAccount": "Crea account",
+    "email": "Email",
+    "login": "Accedi",
+    "password": "Password",
+    "registerTitle": "Inizia a tracciare i rinnovi",
+    "signInTitle": "Bentornato"
+  },
+  "dashboard": {
+    "monthlySpend": "Spesa mensile",
+    "renewals": "Rinnovi in arrivo",
+    "spendingMix": "Distribuzione spese",
+    "yearlyProjection": "Proiezione annuale"
+  },
+  "navigation": {
+    "dashboard": "Home",
+    "settings": "Impost.",
+    "subscriptions": "Abbon."
+  },
+  "settings": {
+    "currency": "Valuta predefinita",
+    "language": "Lingua",
+    "title": "Impostazioni"
+  },
+  "subscriptions": {
+    "title": "Abbonamenti"
+  }
+}

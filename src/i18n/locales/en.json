@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "addSubscription": "Add subscription",
+    "notifications": "Notifications"
+  },
+  "app": {
+    "name": "PayTrack",
+    "tagline": "Recurring money, under control"
+  },
+  "auth": {
+    "createAccount": "Create account",
+    "email": "Email",
+    "login": "Log in",
+    "password": "Password",
+    "registerTitle": "Start tracking renewals",
+    "signInTitle": "Welcome back"
+  },
+  "dashboard": {
+    "monthlySpend": "Monthly spend",
+    "renewals": "Upcoming renewals",
+    "spendingMix": "Spending mix",
+    "yearlyProjection": "Yearly projection"
+  },
+  "navigation": {
+    "dashboard": "Home",
+    "settings": "Settings",
+    "subscriptions": "Subs"
+  },
+  "settings": {
+    "currency": "Default currency",
+    "language": "Language",
+    "title": "Settings"
+  },
+  "subscriptions": {
+    "title": "Subscriptions"
+  }
+}
