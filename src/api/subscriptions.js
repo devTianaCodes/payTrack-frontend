@@ -48,3 +48,10 @@ export async function restoreSubscription(id) {
   });
   return data.subscription;
 }
+
+export async function markSubscriptionPaid(id) {
+  return apiRequest(`/api/subscriptions/${id}/payments`, {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+}

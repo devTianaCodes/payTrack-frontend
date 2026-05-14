@@ -88,6 +88,7 @@
       "cancel": "Cancel",
       "delete": "Delete",
       "edit": "Edit details",
+      "markPaid": "Mark as paid",
       "manage": "Manage subscription",
       "restore": "Restore subscription"
     },
@@ -134,6 +135,9 @@
       "demoNote": "Demo subscriptions cannot be changed.",
       "note": "More management tools will live here as this screen grows.",
       "title": "Management"
+    },
+    "payments": {
+      "title": "Recent payments"
     },
     "renews": "Renews",
     "status": {

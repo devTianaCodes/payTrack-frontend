@@ -1,4 +1,15 @@
-import { ArchiveRestore, Ban, CreditCard, Filter, Plus, Settings2, Trash2, X } from 'lucide-react';
+import {
+  ArchiveRestore,
+  Ban,
+  CheckCircle2,
+  CreditCard,
+  Filter,
+  History,
+  Plus,
+  Settings2,
+  Trash2,
+  X,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -9,6 +20,7 @@ import {
   createSubscription,
   archiveSubscription,
   getSubscriptions,
+  markSubscriptionPaid,
   restoreSubscription,
   updateSubscription,
 } from '../api/subscriptions.js';
@@ -25,6 +37,7 @@ const demoSubscriptions = [
     price: 15.99,
     currency: 'USD',
     paymentMethod: { name: 'Visa', type: 'card', lastFour: '4242' },
+    payments: [{ id: 'demo-netflix-payment', amount: 15.99, currency: 'USD', paidAt: '2026-04-18T00:00:00.000Z' }],
     nextRenewalDate: '2026-05-18T00:00:00.000Z',
     status: 'active',
   },
@@ -35,6 +48,7 @@ const demoSubscriptions = [
     price: 10.99,
     currency: 'USD',
     paymentMethod: { name: 'PayPal', type: 'paypal' },
+    payments: [{ id: 'demo-spotify-payment', amount: 10.99, currency: 'USD', paidAt: '2026-05-02T00:00:00.000Z' }],
     nextRenewalDate: '2026-06-02T00:00:00.000Z',
     status: 'active',
   },
@@ -45,6 +59,7 @@ const demoSubscriptions = [
     price: 14.99,
     currency: 'USD',
     paymentMethod: { name: 'Mastercard', type: 'card', lastFour: '1188' },
+    payments: [{ id: 'demo-waking-up-payment', amount: 14.99, currency: 'USD', paidAt: '2026-05-05T00:00:00.000Z' }],
     nextRenewalDate: '2026-06-05T00:00:00.000Z',
     status: 'active',
   },
@@ -129,7 +144,8 @@ export default function SubscriptionsPage() {
     }
   }, [searchParams]);
 
-  const sourceRows = subscriptions.length > 0 ? subscriptions : demoSubscriptions;
+  const isUsingDemoRows = subscriptions.length === 0;
+  const sourceRows = isUsingDemoRows ? demoSubscriptions : subscriptions;
   const rows = filterSubscriptions(sourceRows, filters);
 
   function updateForm(field, value) {
@@ -170,7 +186,6 @@ export default function SubscriptionsPage() {
   }
 
   function requestConfirmation(subscription, action) {
-    if (subscription.id.startsWith('demo-')) return;
     setConfirmation({ action, subscriptionId: subscription.id });
   }
 
@@ -193,7 +208,6 @@ export default function SubscriptionsPage() {
   }
 
   async function handleCancel(subscription) {
-    if (subscription.id.startsWith('demo-')) return;
     setActionId(subscription.id);
 
     try {
@@ -209,7 +223,6 @@ export default function SubscriptionsPage() {
   }
 
   async function handleDelete(subscription) {
-    if (subscription.id.startsWith('demo-')) return;
     setActionId(subscription.id);
 
     try {
@@ -225,7 +238,6 @@ export default function SubscriptionsPage() {
   }
 
   async function handleRestore(subscription) {
-    if (subscription.id.startsWith('demo-')) return;
     setActionId(subscription.id);
 
     try {
@@ -240,8 +252,22 @@ export default function SubscriptionsPage() {
     }
   }
 
+  async function handleMarkPaid(subscription) {
+    setActionId(subscription.id);
+
+    try {
+      const { subscription: updatedSubscription } = await markSubscriptionPaid(subscription.id);
+      setSubscriptions((current) =>
+        current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
+      );
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setActionId('');
+    }
+  }
+
   function startEdit(subscription) {
-    if (subscription.id.startsWith('demo-')) return;
     setEditId(subscription.id);
     setEditForm(getEditForm(subscription));
   }
@@ -344,6 +370,7 @@ export default function SubscriptionsPage() {
               categories={categories}
               confirmation={confirmation?.subscriptionId === subscription.id ? confirmation : null}
               editForm={editId === subscription.id ? editForm : null}
+              isDemoMode={isUsingDemoRows}
               isManageOpen={openManageId === subscription.id}
               key={subscription.id}
               onCancel={handleCancel}
@@ -352,6 +379,7 @@ export default function SubscriptionsPage() {
               onConfirmAction={confirmAction}
               onDelete={handleDelete}
               onEditChange={updateEditForm}
+              onMarkPaid={handleMarkPaid}
               onRequestConfirmation={requestConfirmation}
               onEditSubmit={handleEditSubmit}
               onRestore={handleRestore}
@@ -585,12 +613,14 @@ function SubscriptionCard({
   categories,
   confirmation,
   editForm,
+  isDemoMode,
   isManageOpen,
   onCancelEdit,
   onClearConfirmation,
   onConfirmAction,
   onEditChange,
   onEditSubmit,
+  onMarkPaid,
   onRequestConfirmation,
   onRestore,
   onStartEdit,
@@ -599,7 +629,7 @@ function SubscriptionCard({
   subscription,
 }) {
   const { t } = useTranslation();
-  const isDemo = subscription.id.startsWith('demo-');
+  const isDemo = isDemoMode && subscription.id.startsWith('demo-');
   const isBusy = actionId === subscription.id;
   const status = subscription.status ?? 'active';
   const isArchived = status === 'archived';
@@ -625,6 +655,7 @@ function SubscriptionCard({
         <p>{t('subscriptions.renews')} {formatDate(subscription.nextRenewalDate)}</p>
         {subscription.paymentMethod ? <PaymentMethodBadge paymentMethod={subscription.paymentMethod} /> : null}
       </div>
+      <PaymentHistory payments={subscription.payments ?? []} />
       <div className="mt-4">
         <button
           type="button"
@@ -653,6 +684,15 @@ function SubscriptionCard({
             </button>
           ) : null}
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <button
+              type="button"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-mint px-3 text-sm font-black text-ink disabled:opacity-40"
+              disabled={isDemo || isBusy || isArchived || status === 'cancelled'}
+              onClick={() => onMarkPaid(subscription)}
+            >
+              <CheckCircle2 size={16} />
+              {t('subscriptions.actions.markPaid')}
+            </button>
             <button
               type="button"
               className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-ink px-3 text-sm font-black text-white disabled:opacity-40 dark:bg-mint dark:text-ink"
@@ -862,6 +902,29 @@ function PaymentMethodBadge({ paymentMethod }) {
     <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:bg-slate-700 dark:text-slate-200">
       <CreditCard size={14} />
       <span>{label}</span>
+    </div>
+  );
+}
+
+function PaymentHistory({ payments }) {
+  const { t } = useTranslation();
+
+  if (payments.length === 0) return null;
+
+  return (
+    <div className="mt-3 rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm transition-colors dark:border-slate-600 dark:bg-slate-800/50">
+      <div className="flex items-center gap-2 font-black text-ink dark:text-white">
+        <History size={15} />
+        <span>{t('subscriptions.payments.title')}</span>
+      </div>
+      <div className="mt-2 space-y-1">
+        {payments.map((payment) => (
+          <div key={payment.id} className="flex items-center justify-between gap-3 font-bold text-slate-500 dark:text-slate-300">
+            <span>{formatDate(payment.paidAt)}</span>
+            <span className="text-coral">{formatMoney(payment.amount, payment.currency)}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

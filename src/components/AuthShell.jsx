@@ -48,7 +48,8 @@ export default function AuthShell({
             id="email"
             name="email"
             className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-mint"
-            type="email"
+            type="text"
+            inputMode="email"
             placeholder="you@example.com"
             autoComplete="email"
             required

@@ -88,6 +88,7 @@
       "cancel": "Annulla",
       "delete": "Elimina",
       "edit": "Modifica dettagli",
+      "markPaid": "Segna pagato",
       "manage": "Gestisci abbonamento",
       "restore": "Ripristina abbonamento"
     },
@@ -134,6 +135,9 @@
       "demoNote": "Gli abbonamenti demo non possono essere modificati.",
       "note": "Qui aggiungeremo altri strumenti di gestione.",
       "title": "Gestione"
+    },
+    "payments": {
+      "title": "Pagamenti recenti"
     },
     "renews": "Rinnova",
     "status": {

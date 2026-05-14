@@ -88,6 +88,7 @@
       "cancel": "Anulează",
       "delete": "Șterge",
       "edit": "Editează detalii",
+      "markPaid": "Marchează plătit",
       "manage": "Gestionează abonamentul",
       "restore": "Restaurează abonamentul"
     },
@@ -134,6 +135,9 @@
       "demoNote": "Abonamentele demo nu pot fi modificate.",
       "note": "Aici vor apărea mai multe instrumente de gestionare.",
       "title": "Gestionare"
+    },
+    "payments": {
+      "title": "Plăți recente"
     },
     "renews": "Se reînnoiește",
     "status": {

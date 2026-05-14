@@ -12,6 +12,10 @@ Mobile-first React web app for tracking subscriptions, renewal dates, payment me
 - Recharts
 - lucide-react
 
+## Architecture Flow
+
+![PayTrack app logic and architecture](docs/paytrack-architecture-flow.png)
+
 ## Local Setup
 
 ```bash

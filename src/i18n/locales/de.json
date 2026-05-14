@@ -88,6 +88,7 @@
       "cancel": "Kündigen",
       "delete": "Löschen",
       "edit": "Details bearbeiten",
+      "markPaid": "Als bezahlt markieren",
       "manage": "Abo verwalten",
       "restore": "Abo wiederherstellen"
     },
@@ -134,6 +135,9 @@
       "demoNote": "Demo-Abos können nicht geändert werden.",
       "note": "Weitere Verwaltungsfunktionen werden hier ergänzt.",
       "title": "Verwaltung"
+    },
+    "payments": {
+      "title": "Letzte Zahlungen"
     },
     "renews": "Verlängert sich",
     "status": {

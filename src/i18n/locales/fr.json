@@ -88,6 +88,7 @@
       "cancel": "Annuler",
       "delete": "Supprimer",
       "edit": "Modifier les détails",
+      "markPaid": "Marquer payé",
       "manage": "Gérer l'abonnement",
       "restore": "Restaurer l'abonnement"
     },
@@ -134,6 +135,9 @@
       "demoNote": "Les abonnements de démonstration ne peuvent pas être modifiés.",
       "note": "D'autres outils de gestion seront ajoutés ici.",
       "title": "Gestion"
+    },
+    "payments": {
+      "title": "Paiements récents"
     },
     "renews": "Renouvelle",
     "status": {
