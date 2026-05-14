@@ -35,12 +35,17 @@
     "subscriptions": "Abonn."
   },
   "payments": {
+    "allYears": "Toutes les années",
+    "average": "Moyenne",
     "back": "Retour aux abonnements",
     "count": "Paiements",
     "emptyMessage": "Marquez un abonnement comme payé pour créer son historique.",
     "emptyTitle": "Aucun paiement",
+    "filterYear": "Année",
+    "lastPaid": "Dernier paiement",
     "nextRenewal": "Prochain renouvellement",
     "noPaymentMethod": "Aucune méthode de paiement",
+    "none": "Aucun",
     "title": "Historique des paiements",
     "totalPaid": "Total payé"
   },

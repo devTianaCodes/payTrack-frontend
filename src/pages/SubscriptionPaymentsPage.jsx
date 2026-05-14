@@ -1,5 +1,5 @@
 import { ArrowLeft, CalendarDays, History } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { getSubscription, getSubscriptionPayments } from '../api/subscriptions.js';
@@ -11,8 +11,15 @@ export default function SubscriptionPaymentsPage() {
   const { t } = useTranslation();
   const [subscription, setSubscription] = useState(null);
   const [payments, setPayments] = useState([]);
+  const [selectedYear, setSelectedYear] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const paymentYears = useMemo(() => getPaymentYears(payments), [payments]);
+  const visiblePayments = useMemo(
+    () => filterPaymentsByYear(payments, selectedYear),
+    [payments, selectedYear],
+  );
 
   useEffect(() => {
     let isActive = true;
@@ -54,7 +61,14 @@ export default function SubscriptionPaymentsPage() {
           {payments.length === 0 ? (
             <StateMessage title={t('payments.emptyTitle')} message={t('payments.emptyMessage')} />
           ) : (
-            <PaymentTimeline payments={payments} />
+            <>
+              <PaymentFilters
+                onChange={setSelectedYear}
+                selectedYear={selectedYear}
+                years={paymentYears}
+              />
+              <PaymentTimeline payments={visiblePayments} />
+            </>
           )}
         </>
       ) : null}
@@ -65,6 +79,8 @@ export default function SubscriptionPaymentsPage() {
 function PaymentHeader({ subscription, payments }) {
   const { t } = useTranslation();
   const totalPaid = payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+  const lastPayment = payments[0];
+  const averagePayment = payments.length ? totalPaid / payments.length : 0;
 
   return (
     <div className="rounded-[2rem] bg-ink p-5 text-white shadow-soft md:p-6">
@@ -81,9 +97,11 @@ function PaymentHeader({ subscription, payments }) {
           <p className="text-xl font-black text-coral">{formatMoney(totalPaid, subscription.currency)}</p>
         </div>
       </div>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Metric icon={CalendarDays} label={t('payments.nextRenewal')} value={formatDate(subscription.nextRenewalDate)} />
         <Metric icon={History} label={t('payments.count')} value={payments.length} />
+        <Metric icon={History} label={t('payments.average')} value={formatMoney(averagePayment, subscription.currency)} />
+        <Metric icon={CalendarDays} label={t('payments.lastPaid')} value={lastPayment ? formatDate(lastPayment.paidAt) : t('payments.none')} />
       </div>
     </div>
   );
@@ -97,6 +115,32 @@ function Metric({ icon: Icon, label, value }) {
         <span>{label}</span>
       </div>
       <p className="mt-1 text-lg font-black">{value}</p>
+    </div>
+  );
+}
+
+function PaymentFilters({ onChange, selectedYear, years }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4 transition-colors dark:border-slate-600 dark:bg-slate-700/75">
+      <label className="block">
+        <span className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">
+          {t('payments.filterYear')}
+        </span>
+        <select
+          className="mt-2 w-full rounded-2xl border border-emerald-100 bg-mist px-4 py-3 font-bold text-ink outline-none transition focus:border-mint focus:bg-white dark:border-slate-600 dark:bg-slate-600 dark:text-white dark:focus:bg-slate-500"
+          value={selectedYear}
+          onChange={(event) => onChange(event.target.value)}
+        >
+          <option value="all">{t('payments.allYears')}</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 }
@@ -128,6 +172,20 @@ function PaymentTimeline({ payments }) {
         </article>
       ))}
     </div>
+  );
+}
+
+function getPaymentYears(payments) {
+  return Array.from(
+    new Set(payments.map((payment) => new Date(payment.paidAt).getFullYear())),
+  ).sort((left, right) => right - left);
+}
+
+function filterPaymentsByYear(payments, selectedYear) {
+  if (selectedYear === 'all') return payments;
+
+  return payments.filter(
+    (payment) => String(new Date(payment.paidAt).getFullYear()) === selectedYear,
   );
 }
 

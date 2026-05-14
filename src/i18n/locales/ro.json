@@ -35,12 +35,17 @@
     "subscriptions": "Abon."
   },
   "payments": {
+    "allYears": "Toți anii",
+    "average": "Medie",
     "back": "Înapoi la abonamente",
     "count": "Plăți",
     "emptyMessage": "Marchează un abonament ca plătit pentru a crea istoricul plăților.",
     "emptyTitle": "Nicio plată",
+    "filterYear": "An",
+    "lastPaid": "Ultima plată",
     "nextRenewal": "Următoarea reînnoire",
     "noPaymentMethod": "Nicio metodă de plată",
+    "none": "Niciuna",
     "title": "Istoricul plăților",
     "totalPaid": "Total plătit"
   },

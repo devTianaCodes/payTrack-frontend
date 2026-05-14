@@ -35,12 +35,17 @@
     "subscriptions": "Subs"
   },
   "payments": {
+    "allYears": "All years",
+    "average": "Average",
     "back": "Back to subscriptions",
     "count": "Payments",
     "emptyMessage": "Mark a subscription as paid to build its payment timeline.",
     "emptyTitle": "No payments yet",
+    "filterYear": "Year",
+    "lastPaid": "Last paid",
     "nextRenewal": "Next renewal",
     "noPaymentMethod": "No payment method",
+    "none": "None",
     "title": "Payment history",
     "totalPaid": "Total paid"
   },

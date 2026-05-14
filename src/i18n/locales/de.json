@@ -35,12 +35,17 @@
     "subscriptions": "Abos"
   },
   "payments": {
+    "allYears": "Alle Jahre",
+    "average": "Durchschnitt",
     "back": "Zurück zu Abos",
     "count": "Zahlungen",
     "emptyMessage": "Markiere ein Abo als bezahlt, um die Zahlungshistorie aufzubauen.",
     "emptyTitle": "Noch keine Zahlungen",
+    "filterYear": "Jahr",
+    "lastPaid": "Zuletzt bezahlt",
     "nextRenewal": "Nächste Verlängerung",
     "noPaymentMethod": "Keine Zahlungsmethode",
+    "none": "Keine",
     "title": "Zahlungshistorie",
     "totalPaid": "Gesamt bezahlt"
   },

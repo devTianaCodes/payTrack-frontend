@@ -35,12 +35,17 @@
     "subscriptions": "Abbon."
   },
   "payments": {
+    "allYears": "Tutti gli anni",
+    "average": "Media",
     "back": "Torna agli abbonamenti",
     "count": "Pagamenti",
     "emptyMessage": "Segna un abbonamento come pagato per creare la timeline dei pagamenti.",
     "emptyTitle": "Nessun pagamento",
+    "filterYear": "Anno",
+    "lastPaid": "Ultimo pagamento",
     "nextRenewal": "Prossimo rinnovo",
     "noPaymentMethod": "Nessun metodo di pagamento",
+    "none": "Nessuno",
     "title": "Storico pagamenti",
     "totalPaid": "Totale pagato"
   },
