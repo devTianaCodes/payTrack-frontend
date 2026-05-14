@@ -71,9 +71,21 @@
   },
   "subscriptions": {
     "actions": {
+      "archive": "Mută în arhivă",
       "cancel": "Anulează",
       "delete": "Șterge",
-      "manage": "Gestionează abonamentul"
+      "edit": "Editează detalii",
+      "manage": "Gestionează abonamentul",
+      "restore": "Restaurează abonamentul"
+    },
+    "confirm": {
+      "archiveMessage": "Îl mută în arhivă. Îl poți restaura mai târziu, iar elementele arhivate sunt curățate după un an.",
+      "archiveTitle": "Muți acest abonament în arhivă?",
+      "cancelMessage": "Păstrează istoricul, dar îl scoate din totalurile active și notificări.",
+      "cancelTitle": "Anulezi acest abonament?",
+      "confirm": "Confirmă",
+      "keep": "Păstrează",
+      "working": "Se lucrează..."
     },
     "emptyMessage": "Adaugă prima plată recurentă pentru a începe urmărirea reînnoirilor.",
     "emptyTitle": "Niciun abonament",
@@ -113,6 +125,7 @@
     "renews": "Se reînnoiește",
     "status": {
       "active": "Activ",
+      "archived": "Arhivat",
       "cancelled": "Anulat"
     },
     "subtitle": "Urmărește reînnoiri, categorii și metode de plată pe orice ecran.",

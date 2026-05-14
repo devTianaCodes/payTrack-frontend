@@ -71,9 +71,21 @@
   },
   "subscriptions": {
     "actions": {
+      "archive": "Déplacer vers l'archive",
       "cancel": "Annuler",
       "delete": "Supprimer",
-      "manage": "Gérer l'abonnement"
+      "edit": "Modifier les détails",
+      "manage": "Gérer l'abonnement",
+      "restore": "Restaurer l'abonnement"
+    },
+    "confirm": {
+      "archiveMessage": "Cela le déplace dans l'archive. Vous pourrez le restaurer plus tard ; les éléments archivés sont nettoyés après un an.",
+      "archiveTitle": "Déplacer cet abonnement vers l'archive ?",
+      "cancelMessage": "L'historique est conservé, mais il sort des totaux actifs et des rappels.",
+      "cancelTitle": "Annuler cet abonnement ?",
+      "confirm": "Confirmer",
+      "keep": "Le garder",
+      "working": "Traitement..."
     },
     "emptyMessage": "Ajoutez votre premier paiement récurrent pour suivre les renouvellements.",
     "emptyTitle": "Aucun abonnement",
@@ -113,6 +125,7 @@
     "renews": "Renouvelle",
     "status": {
       "active": "Actif",
+      "archived": "Archivé",
       "cancelled": "Annulé"
     },
     "subtitle": "Suivez renouvellements, catégories et méthodes de paiement sur tous les écrans.",

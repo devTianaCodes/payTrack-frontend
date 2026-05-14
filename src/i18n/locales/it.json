@@ -71,9 +71,21 @@
   },
   "subscriptions": {
     "actions": {
+      "archive": "Sposta in archivio",
       "cancel": "Annulla",
       "delete": "Elimina",
-      "manage": "Gestisci abbonamento"
+      "edit": "Modifica dettagli",
+      "manage": "Gestisci abbonamento",
+      "restore": "Ripristina abbonamento"
+    },
+    "confirm": {
+      "archiveMessage": "Lo sposta nell'archivio. Puoi ripristinarlo più tardi; gli elementi archiviati vengono puliti dopo un anno.",
+      "archiveTitle": "Spostare questo abbonamento in archivio?",
+      "cancelMessage": "Mantiene lo storico ma lo rimuove dai totali attivi e dai promemoria.",
+      "cancelTitle": "Annullare questo abbonamento?",
+      "confirm": "Conferma",
+      "keep": "Mantieni",
+      "working": "Operazione..."
     },
     "emptyMessage": "Aggiungi il primo pagamento ricorrente per iniziare a tracciare i rinnovi.",
     "emptyTitle": "Nessun abbonamento",
@@ -113,6 +125,7 @@
     "renews": "Rinnova",
     "status": {
       "active": "Attivo",
+      "archived": "Archiviato",
       "cancelled": "Annullato"
     },
     "subtitle": "Traccia rinnovi, categorie e metodi di pagamento su ogni dimensione di schermo.",

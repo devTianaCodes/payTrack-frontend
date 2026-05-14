@@ -71,9 +71,21 @@
   },
   "subscriptions": {
     "actions": {
+      "archive": "Move to archive",
       "cancel": "Cancel",
       "delete": "Delete",
-      "manage": "Manage subscription"
+      "edit": "Edit details",
+      "manage": "Manage subscription",
+      "restore": "Restore subscription"
+    },
+    "confirm": {
+      "archiveMessage": "This moves it to the archive. You can restore it later, and archived items are cleaned after one year.",
+      "archiveTitle": "Move this subscription to archive?",
+      "cancelMessage": "This keeps history but removes it from active totals and reminders.",
+      "cancelTitle": "Cancel this subscription?",
+      "confirm": "Confirm",
+      "keep": "Keep it",
+      "working": "Working..."
     },
     "emptyMessage": "Add your first recurring payment to start tracking renewals.",
     "emptyTitle": "No subscriptions yet",
@@ -113,6 +125,7 @@
     "renews": "Renews",
     "status": {
       "active": "Active",
+      "archived": "Archived",
       "cancelled": "Cancelled"
     },
     "subtitle": "Track renewals, categories, and payment methods across every screen size.",

@@ -20,6 +20,14 @@ export async function createSubscription(details) {
   return data.subscription;
 }
 
+export async function updateSubscription(id, details) {
+  const data = await apiRequest(`/api/subscriptions/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(details),
+  });
+  return data.subscription;
+}
+
 export async function cancelSubscription(id) {
   const data = await apiRequest(`/api/subscriptions/${id}/cancel`, {
     method: 'POST',
@@ -27,8 +35,16 @@ export async function cancelSubscription(id) {
   return data.subscription;
 }
 
-export async function deleteSubscription(id) {
-  await apiRequest(`/api/subscriptions/${id}`, {
+export async function archiveSubscription(id) {
+  const data = await apiRequest(`/api/subscriptions/${id}`, {
     method: 'DELETE',
   });
+  return data.subscription;
+}
+
+export async function restoreSubscription(id) {
+  const data = await apiRequest(`/api/subscriptions/${id}/restore`, {
+    method: 'POST',
+  });
+  return data.subscription;
 }

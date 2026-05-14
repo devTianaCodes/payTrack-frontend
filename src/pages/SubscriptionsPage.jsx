@@ -1,4 +1,4 @@
-import { Ban, CreditCard, Filter, Plus, Settings2, Trash2, X } from 'lucide-react';
+import { ArchiveRestore, Ban, CreditCard, Filter, Plus, Settings2, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -7,8 +7,10 @@ import { getPaymentMethods } from '../api/paymentMethods.js';
 import {
   cancelSubscription,
   createSubscription,
-  deleteSubscription,
+  archiveSubscription,
   getSubscriptions,
+  restoreSubscription,
+  updateSubscription,
 } from '../api/subscriptions.js';
 import { useAuth } from '../auth/AuthContext.jsx';
 import ServiceLogo from '../components/ServiceLogo.jsx';
@@ -70,6 +72,9 @@ export default function SubscriptionsPage() {
   const [isAddOpen, setIsAddOpen] = useState(searchParams.get('action') === 'add');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [actionId, setActionId] = useState('');
+  const [confirmation, setConfirmation] = useState(null);
+  const [editForm, setEditForm] = useState(null);
+  const [editId, setEditId] = useState('');
   const [openManageId, setOpenManageId] = useState('');
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
@@ -144,6 +149,29 @@ export default function SubscriptionsPage() {
     setFilters((current) => ({ ...current, [field]: value }));
   }
 
+  function requestConfirmation(subscription, action) {
+    if (subscription.id.startsWith('demo-')) return;
+    setConfirmation({ action, subscriptionId: subscription.id });
+  }
+
+  function clearConfirmation() {
+    setConfirmation(null);
+  }
+
+  async function confirmAction(subscription) {
+    if (!confirmation || confirmation.subscriptionId !== subscription.id) return;
+
+    if (confirmation.action === 'cancel') {
+      await handleCancel(subscription);
+    }
+
+    if (confirmation.action === 'archive') {
+      await handleDelete(subscription);
+    }
+
+    clearConfirmation();
+  }
+
   async function handleCancel(subscription) {
     if (subscription.id.startsWith('demo-')) return;
     setActionId(subscription.id);
@@ -165,8 +193,64 @@ export default function SubscriptionsPage() {
     setActionId(subscription.id);
 
     try {
-      await deleteSubscription(subscription.id);
-      setSubscriptions((current) => current.filter((item) => item.id !== subscription.id));
+      const updatedSubscription = await archiveSubscription(subscription.id);
+      setSubscriptions((current) =>
+        current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
+      );
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setActionId('');
+    }
+  }
+
+  async function handleRestore(subscription) {
+    if (subscription.id.startsWith('demo-')) return;
+    setActionId(subscription.id);
+
+    try {
+      const updatedSubscription = await restoreSubscription(subscription.id);
+      setSubscriptions((current) =>
+        current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
+      );
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setActionId('');
+    }
+  }
+
+  function startEdit(subscription) {
+    if (subscription.id.startsWith('demo-')) return;
+    setEditId(subscription.id);
+    setEditForm(getEditForm(subscription));
+  }
+
+  function cancelEdit() {
+    setEditId('');
+    setEditForm(null);
+  }
+
+  function updateEditForm(field, value) {
+    setEditForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function handleEditSubmit(event, subscription) {
+    event.preventDefault();
+    setActionId(subscription.id);
+
+    try {
+      const updatedSubscription = await updateSubscription(subscription.id, {
+        ...editForm,
+        price: Number(editForm.price),
+        categoryId: editForm.categoryId || null,
+        paymentMethodId: editForm.paymentMethodId || null,
+        notes: editForm.notes || null,
+      });
+      setSubscriptions((current) =>
+        current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
+      );
+      cancelEdit();
     } catch (requestError) {
       setError(requestError.message);
     } finally {
@@ -237,13 +321,25 @@ export default function SubscriptionsPage() {
           {rows.map((subscription) => (
             <SubscriptionCard
               actionId={actionId}
+              categories={categories}
+              confirmation={confirmation?.subscriptionId === subscription.id ? confirmation : null}
+              editForm={editId === subscription.id ? editForm : null}
               isManageOpen={openManageId === subscription.id}
               key={subscription.id}
               onCancel={handleCancel}
+              onCancelEdit={cancelEdit}
+              onClearConfirmation={clearConfirmation}
+              onConfirmAction={confirmAction}
               onDelete={handleDelete}
+              onEditChange={updateEditForm}
+              onRequestConfirmation={requestConfirmation}
+              onEditSubmit={handleEditSubmit}
+              onRestore={handleRestore}
+              onStartEdit={startEdit}
               onToggleManage={() =>
                 setOpenManageId((current) => (current === subscription.id ? '' : subscription.id))
               }
+              paymentMethods={paymentMethods}
               subscription={subscription}
             />
           ))}
@@ -268,6 +364,7 @@ function SubscriptionFilters({ categories, filters, onChange, onClear, paymentMe
             <option value="all">{t('subscriptions.filters.all')}</option>
             <option value="active">{t('subscriptions.status.active')}</option>
             <option value="cancelled">{t('subscriptions.status.cancelled')}</option>
+            <option value="archived">{t('subscriptions.status.archived')}</option>
           </select>
         </FormField>
         <FormField label={t('subscriptions.form.category')}>
@@ -465,16 +562,27 @@ function FormField({ children, className = '', label }) {
 
 function SubscriptionCard({
   actionId,
+  categories,
+  confirmation,
+  editForm,
   isManageOpen,
-  onCancel,
-  onDelete,
+  onCancelEdit,
+  onClearConfirmation,
+  onConfirmAction,
+  onEditChange,
+  onEditSubmit,
+  onRequestConfirmation,
+  onRestore,
+  onStartEdit,
   onToggleManage,
+  paymentMethods,
   subscription,
 }) {
   const { t } = useTranslation();
   const isDemo = subscription.id.startsWith('demo-');
   const isBusy = actionId === subscription.id;
   const status = subscription.status ?? 'active';
+  const isArchived = status === 'archived';
 
   return (
     <article className="rounded-[2rem] border border-emerald-100 bg-white/80 p-4 transition-colors dark:border-slate-600 dark:bg-slate-700/75">
@@ -513,32 +621,215 @@ function SubscriptionCard({
           <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">
             {t('subscriptions.manage.title')}
           </p>
+          {isArchived ? (
+            <button
+              type="button"
+              className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-mint px-3 text-sm font-black text-ink disabled:opacity-40"
+              disabled={isDemo || isBusy}
+              onClick={() => onRestore(subscription)}
+            >
+              <ArchiveRestore size={16} />
+              {t('subscriptions.actions.restore')}
+            </button>
+          ) : null}
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             <button
               type="button"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-ink px-3 text-sm font-black text-white disabled:opacity-40 dark:bg-mint dark:text-ink"
+              disabled={isDemo || isBusy || isArchived}
+              onClick={() => onStartEdit(subscription)}
+            >
+              <Settings2 size={16} />
+              {t('subscriptions.actions.edit')}
+            </button>
+            <button
+              type="button"
               className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-sage px-3 text-sm font-black text-ink disabled:opacity-40 dark:bg-slate-600 dark:text-white"
-              disabled={isDemo || isBusy || status === 'cancelled'}
-              onClick={() => onCancel(subscription)}
+              disabled={isDemo || isBusy || status === 'cancelled' || isArchived}
+              onClick={() => onRequestConfirmation(subscription, 'cancel')}
             >
               <Ban size={16} />
               {t('subscriptions.actions.cancel')}
             </button>
+          </div>
+          {editForm ? (
+            <ManageEditForm
+              categories={categories}
+              editForm={editForm}
+              isSaving={isBusy}
+              onCancel={onCancelEdit}
+              onChange={onEditChange}
+              onSubmit={(event) => onEditSubmit(event, subscription)}
+              paymentMethods={paymentMethods}
+            />
+          ) : null}
+          <div className="mt-2">
             <button
               type="button"
-              className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-coral/10 px-3 text-sm font-black text-coral disabled:opacity-40"
-              disabled={isDemo || isBusy}
-              onClick={() => onDelete(subscription)}
+              className="flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-coral/10 px-3 text-sm font-black text-coral disabled:opacity-40"
+              disabled={isDemo || isBusy || isArchived}
+              onClick={() => onRequestConfirmation(subscription, 'archive')}
             >
               <Trash2 size={16} />
-              {t('subscriptions.actions.delete')}
+              {t('subscriptions.actions.archive')}
             </button>
           </div>
+          {confirmation ? (
+            <ActionConfirmation
+              action={confirmation.action}
+              isBusy={isBusy}
+              onCancel={onClearConfirmation}
+              onConfirm={() => onConfirmAction(subscription)}
+            />
+          ) : null}
           <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-300">
             {isDemo ? t('subscriptions.manage.demoNote') : t('subscriptions.manage.note')}
           </p>
         </div>
       ) : null}
     </article>
+  );
+}
+
+function ActionConfirmation({ action, isBusy, onCancel, onConfirm }) {
+  const { t } = useTranslation();
+  const isArchive = action === 'archive';
+
+  return (
+    <div className="mt-3 rounded-2xl bg-coral/10 p-3 text-coral">
+      <p className="text-sm font-black">
+        {isArchive ? t('subscriptions.confirm.archiveTitle') : t('subscriptions.confirm.cancelTitle')}
+      </p>
+      <p className="mt-1 text-xs font-bold">
+        {isArchive ? t('subscriptions.confirm.archiveMessage') : t('subscriptions.confirm.cancelMessage')}
+      </p>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <button
+          type="button"
+          className="rounded-2xl bg-white px-4 py-3 font-black text-ink dark:bg-slate-700 dark:text-white"
+          onClick={onCancel}
+        >
+          {t('subscriptions.confirm.keep')}
+        </button>
+        <button
+          type="button"
+          className="rounded-2xl bg-coral px-4 py-3 font-black text-white disabled:opacity-60"
+          disabled={isBusy}
+          onClick={onConfirm}
+        >
+          {isBusy ? t('subscriptions.confirm.working') : t('subscriptions.confirm.confirm')}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ManageEditForm({
+  categories,
+  editForm,
+  isSaving,
+  onCancel,
+  onChange,
+  onSubmit,
+  paymentMethods,
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <form className="mt-3 rounded-2xl bg-white/70 p-3 dark:bg-slate-700" onSubmit={onSubmit}>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <FormField label={t('subscriptions.form.name')}>
+          <input
+            required
+            className={inputClassName}
+            maxLength={120}
+            value={editForm.name}
+            onChange={(event) => onChange('name', event.target.value)}
+          />
+        </FormField>
+        <FormField label={t('subscriptions.form.price')}>
+          <input
+            required
+            className={inputClassName}
+            min="0.01"
+            step="0.01"
+            type="number"
+            value={editForm.price}
+            onChange={(event) => onChange('price', event.target.value)}
+          />
+        </FormField>
+        <FormField label={t('subscriptions.form.currency')}>
+          <select
+            className={inputClassName}
+            value={editForm.currency}
+            onChange={(event) => onChange('currency', event.target.value)}
+          >
+            {currencyOptions.map((currency) => (
+              <option key={currency.code} value={currency.code}>
+                {getCurrencyLabel(currency.code)}
+              </option>
+            ))}
+          </select>
+        </FormField>
+        <FormField label={t('subscriptions.form.renews')}>
+          <input
+            required
+            className={inputClassName}
+            type="date"
+            value={editForm.nextRenewalDate}
+            onChange={(event) => onChange('nextRenewalDate', event.target.value)}
+          />
+        </FormField>
+        <FormField label={t('subscriptions.form.frequency')}>
+          <select
+            className={inputClassName}
+            value={editForm.billingFrequency}
+            onChange={(event) => onChange('billingFrequency', event.target.value)}
+          >
+            <option value="weekly">{t('subscriptions.frequency.weekly')}</option>
+            <option value="monthly">{t('subscriptions.frequency.monthly')}</option>
+            <option value="quarterly">{t('subscriptions.frequency.quarterly')}</option>
+            <option value="yearly">{t('subscriptions.frequency.yearly')}</option>
+          </select>
+        </FormField>
+        <FormField label={t('subscriptions.form.category')}>
+          <select
+            className={inputClassName}
+            value={editForm.categoryId}
+            onChange={(event) => onChange('categoryId', event.target.value)}
+          >
+            <option value="">{t('subscriptions.form.none')}</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </FormField>
+        <FormField label={t('subscriptions.form.paymentMethod')} className="sm:col-span-2">
+          <select
+            className={inputClassName}
+            value={editForm.paymentMethodId}
+            onChange={(event) => onChange('paymentMethodId', event.target.value)}
+          >
+            <option value="">{t('subscriptions.form.none')}</option>
+            {paymentMethods.map((paymentMethod) => (
+              <option key={paymentMethod.id} value={paymentMethod.id}>
+                {paymentMethod.name}
+              </option>
+            ))}
+          </select>
+        </FormField>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <button type="button" className="rounded-2xl bg-sage px-4 py-3 font-black text-ink dark:bg-slate-600 dark:text-white" onClick={onCancel}>
+          {t('actions.cancel')}
+        </button>
+        <button type="submit" className="rounded-2xl bg-ink px-4 py-3 font-black text-white dark:bg-mint dark:text-ink" disabled={isSaving}>
+          {isSaving ? t('subscriptions.form.saving') : t('subscriptions.form.save')}
+        </button>
+      </div>
+    </form>
   );
 }
 
@@ -593,6 +884,18 @@ function getInitialForm(defaultCurrency = 'USD') {
   };
 }
 
+function getEditForm(subscription) {
+  return {
+    name: subscription.name,
+    price: String(subscription.price),
+    currency: subscription.currency,
+    billingFrequency: subscription.billingFrequency ?? 'monthly',
+    nextRenewalDate: formatInputDate(subscription.nextRenewalDate),
+    categoryId: subscription.category?.id ?? '',
+    paymentMethodId: subscription.paymentMethod?.id ?? '',
+  };
+}
+
 function getInitialFilters() {
   return {
     status: 'all',
@@ -621,6 +924,10 @@ function getTomorrowDate() {
   const date = new Date();
   date.setDate(date.getDate() + 1);
   return date.toISOString().slice(0, 10);
+}
+
+function formatInputDate(value) {
+  return new Date(value).toISOString().slice(0, 10);
 }
 
 const inputClassName =

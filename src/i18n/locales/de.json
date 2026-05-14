@@ -71,9 +71,21 @@
   },
   "subscriptions": {
     "actions": {
+      "archive": "Ins Archiv verschieben",
       "cancel": "Kündigen",
       "delete": "Löschen",
-      "manage": "Abo verwalten"
+      "edit": "Details bearbeiten",
+      "manage": "Abo verwalten",
+      "restore": "Abo wiederherstellen"
+    },
+    "confirm": {
+      "archiveMessage": "Dies verschiebt es ins Archiv. Du kannst es später wiederherstellen; archivierte Einträge werden nach einem Jahr bereinigt.",
+      "archiveTitle": "Dieses Abo ins Archiv verschieben?",
+      "cancelMessage": "Der Verlauf bleibt erhalten, aber es zählt nicht mehr zu aktiven Summen und Erinnerungen.",
+      "cancelTitle": "Dieses Abo kündigen?",
+      "confirm": "Bestätigen",
+      "keep": "Behalten",
+      "working": "Wird ausgeführt..."
     },
     "emptyMessage": "Füge deine erste wiederkehrende Zahlung hinzu, um Verlängerungen zu verfolgen.",
     "emptyTitle": "Noch keine Abos",
@@ -113,6 +125,7 @@
     "renews": "Verlängert sich",
     "status": {
       "active": "Aktiv",
+      "archived": "Archiviert",
       "cancelled": "Gekündigt"
     },
     "subtitle": "Verfolge Verlängerungen, Kategorien und Zahlungsmethoden auf jeder Bildschirmgröße.",
