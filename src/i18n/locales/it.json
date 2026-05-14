@@ -34,6 +34,16 @@
     "settings": "Impost.",
     "subscriptions": "Abbon."
   },
+  "payments": {
+    "back": "Torna agli abbonamenti",
+    "count": "Pagamenti",
+    "emptyMessage": "Segna un abbonamento come pagato per creare la timeline dei pagamenti.",
+    "emptyTitle": "Nessun pagamento",
+    "nextRenewal": "Prossimo rinnovo",
+    "noPaymentMethod": "Nessun metodo di pagamento",
+    "title": "Storico pagamenti",
+    "totalPaid": "Totale pagato"
+  },
   "reminders": {
     "emptyMessage": "I promemoria di rinnovo appariranno qui dopo l'invio da PayTrack.",
     "emptyTitle": "Nessun promemoria",
@@ -137,7 +147,8 @@
       "title": "Gestione"
     },
     "payments": {
-      "title": "Pagamenti recenti"
+      "title": "Pagamenti recenti",
+      "viewAll": "Vedi tutto"
     },
     "renews": "Rinnova",
     "status": {

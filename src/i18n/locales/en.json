@@ -34,6 +34,16 @@
     "settings": "Settings",
     "subscriptions": "Subs"
   },
+  "payments": {
+    "back": "Back to subscriptions",
+    "count": "Payments",
+    "emptyMessage": "Mark a subscription as paid to build its payment timeline.",
+    "emptyTitle": "No payments yet",
+    "nextRenewal": "Next renewal",
+    "noPaymentMethod": "No payment method",
+    "title": "Payment history",
+    "totalPaid": "Total paid"
+  },
   "reminders": {
     "emptyMessage": "Renewal reminders will appear here after PayTrack sends them.",
     "emptyTitle": "No reminders yet",
@@ -137,7 +147,8 @@
       "title": "Management"
     },
     "payments": {
-      "title": "Recent payments"
+      "title": "Recent payments",
+      "viewAll": "View all"
     },
     "renews": "Renews",
     "status": {

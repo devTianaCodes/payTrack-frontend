@@ -34,6 +34,16 @@
     "settings": "Einstell.",
     "subscriptions": "Abos"
   },
+  "payments": {
+    "back": "Zurück zu Abos",
+    "count": "Zahlungen",
+    "emptyMessage": "Markiere ein Abo als bezahlt, um die Zahlungshistorie aufzubauen.",
+    "emptyTitle": "Noch keine Zahlungen",
+    "nextRenewal": "Nächste Verlängerung",
+    "noPaymentMethod": "Keine Zahlungsmethode",
+    "title": "Zahlungshistorie",
+    "totalPaid": "Gesamt bezahlt"
+  },
   "reminders": {
     "emptyMessage": "Verlängerungserinnerungen erscheinen hier, nachdem PayTrack sie gesendet hat.",
     "emptyTitle": "Noch keine Erinnerungen",
@@ -137,7 +147,8 @@
       "title": "Verwaltung"
     },
     "payments": {
-      "title": "Letzte Zahlungen"
+      "title": "Letzte Zahlungen",
+      "viewAll": "Alle ansehen"
     },
     "renews": "Verlängert sich",
     "status": {

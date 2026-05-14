@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import RemindersPage from './pages/RemindersPage.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
+import SubscriptionPaymentsPage from './pages/SubscriptionPaymentsPage.jsx';
 import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
 import { ThemeProvider } from './theme/ThemeContext.jsx';
 import './styles.css';
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
           { path: 'dashboard', element: <DashboardPage /> },
           { path: 'reminders', element: <RemindersPage /> },
           { path: 'subscriptions', element: <SubscriptionsPage /> },
+          { path: 'subscriptions/:id/payments', element: <SubscriptionPaymentsPage /> },
           { path: 'settings', element: <SettingsPage /> },
         ],
       },

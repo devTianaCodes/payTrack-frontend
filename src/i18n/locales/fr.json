@@ -34,6 +34,16 @@
     "settings": "Réglages",
     "subscriptions": "Abonn."
   },
+  "payments": {
+    "back": "Retour aux abonnements",
+    "count": "Paiements",
+    "emptyMessage": "Marquez un abonnement comme payé pour créer son historique.",
+    "emptyTitle": "Aucun paiement",
+    "nextRenewal": "Prochain renouvellement",
+    "noPaymentMethod": "Aucune méthode de paiement",
+    "title": "Historique des paiements",
+    "totalPaid": "Total payé"
+  },
   "reminders": {
     "emptyMessage": "Les rappels de renouvellement apparaîtront ici après leur envoi par PayTrack.",
     "emptyTitle": "Aucun rappel",
@@ -137,7 +147,8 @@
       "title": "Gestion"
     },
     "payments": {
-      "title": "Paiements récents"
+      "title": "Paiements récents",
+      "viewAll": "Tout voir"
     },
     "renews": "Renouvelle",
     "status": {

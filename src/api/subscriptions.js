@@ -28,6 +28,16 @@ export async function updateSubscription(id, details) {
   return data.subscription;
 }
 
+export async function getSubscription(id) {
+  const data = await apiRequest(`/api/subscriptions/${id}`);
+  return data.subscription;
+}
+
+export async function getSubscriptionPayments(id) {
+  const data = await apiRequest(`/api/subscriptions/${id}/payments`);
+  return data.payments;
+}
+
 export async function cancelSubscription(id) {
   const data = await apiRequest(`/api/subscriptions/${id}/cancel`, {
     method: 'POST',

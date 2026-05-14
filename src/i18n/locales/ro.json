@@ -34,6 +34,16 @@
     "settings": "Setări",
     "subscriptions": "Abon."
   },
+  "payments": {
+    "back": "Înapoi la abonamente",
+    "count": "Plăți",
+    "emptyMessage": "Marchează un abonament ca plătit pentru a crea istoricul plăților.",
+    "emptyTitle": "Nicio plată",
+    "nextRenewal": "Următoarea reînnoire",
+    "noPaymentMethod": "Nicio metodă de plată",
+    "title": "Istoricul plăților",
+    "totalPaid": "Total plătit"
+  },
   "reminders": {
     "emptyMessage": "Mementourile de reînnoire vor apărea aici după ce PayTrack le trimite.",
     "emptyTitle": "Niciun memento încă",
@@ -137,7 +147,8 @@
       "title": "Gestionare"
     },
     "payments": {
-      "title": "Plăți recente"
+      "title": "Plăți recente",
+      "viewAll": "Vezi tot"
     },
     "renews": "Se reînnoiește",
     "status": {

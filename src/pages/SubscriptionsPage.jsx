@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getCategories } from '../api/categories.js';
 import { getPaymentMethods } from '../api/paymentMethods.js';
 import {
@@ -913,9 +913,14 @@ function PaymentHistory({ payments }) {
 
   return (
     <div className="mt-3 rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm transition-colors dark:border-slate-600 dark:bg-slate-800/50">
-      <div className="flex items-center gap-2 font-black text-ink dark:text-white">
-        <History size={15} />
-        <span>{t('subscriptions.payments.title')}</span>
+      <div className="flex items-center justify-between gap-3 font-black text-ink dark:text-white">
+        <div className="flex items-center gap-2">
+          <History size={15} />
+          <span>{t('subscriptions.payments.title')}</span>
+        </div>
+        <Link className="text-xs text-coral" to={`/subscriptions/${payments[0].subscriptionId}/payments`}>
+          {t('subscriptions.payments.viewAll')}
+        </Link>
       </div>
       <div className="mt-2 space-y-1">
         {payments.map((payment) => (
