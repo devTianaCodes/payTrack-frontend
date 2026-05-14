@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Главная",
+    "reminders": "Оповещ.",
     "settings": "Настройки",
     "subscriptions": "Подписки"
+  },
+  "reminders": {
+    "emptyMessage": "Напоминания о продлении появятся здесь после отправки PayTrack.",
+    "emptyTitle": "Напоминаний пока нет",
+    "kind": {
+      "one_day": "За 1 день до продления",
+      "seven_days": "За 7 дней до продления"
+    },
+    "renewal": "Продление",
+    "sent": "Отправлено",
+    "subtitle": "Просматривайте напоминания о продлении, отправленные PayTrack.",
+    "title": "Напоминания"
   },
   "settings": {
     "currency": "Валюта по умолчанию",

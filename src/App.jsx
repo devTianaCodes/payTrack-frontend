@@ -1,15 +1,17 @@
 import { Bell, CreditCard, Home, Settings } from 'lucide-react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const navItems = [
   { to: '/dashboard', icon: Home, labelKey: 'navigation.dashboard' },
   { to: '/subscriptions', icon: CreditCard, labelKey: 'navigation.subscriptions' },
+  { to: '/reminders', icon: Bell, labelKey: 'navigation.reminders' },
   { to: '/settings', icon: Settings, labelKey: 'navigation.settings' },
 ];
 
 export default function App() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-sage text-ink transition-colors dark:bg-slate-600 dark:text-slate-100">
@@ -38,6 +40,7 @@ export default function App() {
                 type="button"
                 className="rounded-full bg-ink p-3 text-white shadow-soft"
                 aria-label={t('actions.notifications')}
+                onClick={() => navigate('/reminders')}
               >
                 <Bell size={20} />
               </button>
@@ -49,7 +52,7 @@ export default function App() {
           </main>
 
           <nav className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur transition-colors dark:border-slate-600 dark:bg-slate-500/95 md:hidden">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {navItems.map((item) => (
                 <NavItem key={item.to} item={item} label={t(item.labelKey)} />
               ))}

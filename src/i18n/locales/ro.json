@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Acasă",
+    "reminders": "Alerte",
     "settings": "Setări",
     "subscriptions": "Abon."
+  },
+  "reminders": {
+    "emptyMessage": "Mementourile de reînnoire vor apărea aici după ce PayTrack le trimite.",
+    "emptyTitle": "Niciun memento încă",
+    "kind": {
+      "one_day": "Cu 1 zi înainte de reînnoire",
+      "seven_days": "Cu 7 zile înainte de reînnoire"
+    },
+    "renewal": "Reînnoire",
+    "sent": "Trimis",
+    "subtitle": "Revizuiește mementourile de reînnoire trimise de PayTrack.",
+    "title": "Mementouri"
   },
   "settings": {
     "currency": "Monedă implicită",

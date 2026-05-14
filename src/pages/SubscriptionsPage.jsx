@@ -58,6 +58,26 @@ const demoSubscriptions = [
     nextRenewalDate: '2026-06-10T00:00:00.000Z',
     status: 'active',
   },
+  {
+    id: 'demo-codex',
+    name: 'Codex',
+    category: { name: 'Programming' },
+    price: 20,
+    currency: 'USD',
+    paymentMethod: { name: 'Visa', type: 'card', lastFour: '4242' },
+    nextRenewalDate: '2026-06-12T00:00:00.000Z',
+    status: 'active',
+  },
+  {
+    id: 'demo-claude',
+    name: 'Claude',
+    category: { name: 'Programming' },
+    price: 20,
+    currency: 'USD',
+    paymentMethod: { name: 'Mastercard', type: 'card', lastFour: '1188' },
+    nextRenewalDate: '2026-06-14T00:00:00.000Z',
+    status: 'active',
+  },
 ];
 
 export default function SubscriptionsPage() {

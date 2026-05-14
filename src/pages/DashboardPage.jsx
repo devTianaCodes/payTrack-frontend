@@ -9,21 +9,55 @@ import StateMessage from '../components/StateMessage.jsx';
 
 const demoDashboard = {
   currency: 'USD',
-  monthlySpend: 55.96,
-  yearlyProjection: 671.52,
-  activeSubscriptionCount: 5,
+  monthlySpend: 95.96,
+  yearlyProjection: 1151.52,
+  activeSubscriptionCount: 7,
   upcomingRenewals: [
     { id: 'demo-netflix', name: 'Netflix', price: 15.99, currency: 'USD', nextRenewalDate: '2026-05-18T00:00:00.000Z' },
     { id: 'demo-figma', name: 'Figma', price: 12, currency: 'USD', nextRenewalDate: '2026-05-21T00:00:00.000Z' },
     { id: 'demo-icloud', name: 'iCloud', price: 2.99, currency: 'USD', nextRenewalDate: '2026-05-25T00:00:00.000Z' },
     { id: 'demo-spotify', name: 'Spotify', price: 10.99, currency: 'USD', nextRenewalDate: '2026-06-02T00:00:00.000Z' },
     { id: 'demo-waking-up', name: 'Waking Up', price: 14.99, currency: 'USD', nextRenewalDate: '2026-06-05T00:00:00.000Z' },
+    { id: 'demo-codex', name: 'Codex', price: 20, currency: 'USD', nextRenewalDate: '2026-06-12T00:00:00.000Z' },
+    { id: 'demo-claude', name: 'Claude', price: 20, currency: 'USD', nextRenewalDate: '2026-06-14T00:00:00.000Z' },
   ],
   categoryMix: [
-    { name: 'Entertainment', value: 26.98, color: '#FF6B5F' },
-    { name: 'Education', value: 14.99, color: '#F59E0B' },
-    { name: 'Productivity', value: 12, color: '#2EE59D' },
-    { name: 'Utilities', value: 2.99, color: '#101828' },
+    {
+      name: 'Entertainment',
+      value: 26.98,
+      color: '#FF6B5F',
+      subscriptions: [
+        { id: 'demo-netflix', name: 'Netflix', value: 15.99 },
+        { id: 'demo-spotify', name: 'Spotify', value: 10.99 },
+      ],
+    },
+    {
+      name: 'Education',
+      value: 14.99,
+      color: '#F59E0B',
+      subscriptions: [{ id: 'demo-waking-up', name: 'Waking Up', value: 14.99 }],
+    },
+    {
+      name: 'Productivity',
+      value: 12,
+      color: '#2EE59D',
+      subscriptions: [{ id: 'demo-figma', name: 'Figma', value: 12 }],
+    },
+    {
+      name: 'Programming',
+      value: 40,
+      color: '#38BDF8',
+      subscriptions: [
+        { id: 'demo-codex', name: 'Codex', value: 20 },
+        { id: 'demo-claude', name: 'Claude', value: 20 },
+      ],
+    },
+    {
+      name: 'Utilities',
+      value: 2.99,
+      color: '#101828',
+      subscriptions: [{ id: 'demo-icloud', name: 'iCloud', value: 2.99 }],
+    },
   ],
 };
 
@@ -104,20 +138,74 @@ export default function DashboardPage() {
 
         <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-5 transition-colors dark:border-slate-600 dark:bg-slate-700/75 md:p-6">
           <h2 className="text-lg font-black">{t('dashboard.spendingMix')}</h2>
-          <div className="h-52">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={categoryData} dataKey="value" innerRadius={54} outerRadius={78} paddingAngle={4}>
-                  {categoryData.map((entry) => (
-                    <Cell key={entry.name} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <SpendingMixChart categories={categoryData} currency={summary.currency} />
         </div>
       </div>
     </section>
+  );
+}
+
+function SpendingMixChart({ categories, currency }) {
+  const total = categories.reduce((sum, category) => sum + Number(category.value), 0);
+
+  return (
+    <div className="mt-4 space-y-4">
+      <div className="relative h-52">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie data={categories} dataKey="value" innerRadius={54} outerRadius={78} paddingAngle={4}>
+              {categories.map((entry) => (
+                <Cell key={entry.name} fill={entry.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">Total</p>
+            <p className="text-lg font-black">{formatMoney(total, currency)}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {categories.map((category) => (
+          <div key={category.name} className="rounded-2xl bg-sage p-3 transition-colors dark:bg-slate-600">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span
+                  className="h-3 w-3 rounded-full"
+                  style={{ backgroundColor: category.color }}
+                />
+                <p className="font-black">{category.name}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-black text-coral">{formatMoney(category.value, currency)}</p>
+                <p className="text-xs font-black text-slate-500 dark:text-slate-300">
+                  {formatPercent(category.value, total)}
+                </p>
+              </div>
+            </div>
+            <div className="mt-2 space-y-1">
+              {(category.subscriptions ?? []).map((subscription) => (
+                <div
+                  key={subscription.id}
+                  className="flex items-center justify-between gap-3 text-sm font-bold text-slate-500 dark:text-slate-300"
+                >
+                  <span>{subscription.name}</span>
+                  <span className="text-right">
+                    {formatMoney(subscription.value, currency)}
+                    <span className="ml-2 text-xs text-slate-400">
+                      {formatPercent(subscription.value, total)}
+                    </span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -157,4 +245,9 @@ function formatDate(value) {
     month: 'short',
     day: 'numeric',
   }).format(new Date(value));
+}
+
+function formatPercent(value, total) {
+  if (!total) return '0%';
+  return `${Math.round((Number(value) / total) * 100)}%`;
 }

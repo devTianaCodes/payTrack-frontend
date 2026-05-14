@@ -1,9 +1,10 @@
-import { Dumbbell, Sparkles } from 'lucide-react';
-import { siFigma, siIcloud, siNetflix, siSpotify } from 'simple-icons';
+import { Code2, Dumbbell, Sparkles } from 'lucide-react';
+import { siClaude, siFigma, siIcloud, siNetflix, siSpotify } from 'simple-icons';
 
 const brandIcons = {
   figma: siFigma,
   icloud: siIcloud,
+  claude: siClaude,
   netflix: siNetflix,
   spotify: siSpotify,
 };
@@ -12,7 +13,8 @@ export default function ServiceLogo({ name, className = '' }) {
   const icon = brandIcons[normalizeName(name)];
 
   if (!icon) {
-    const FallbackIcon = normalizeName(name) === 'wakingup' ? Sparkles : Dumbbell;
+    const normalizedName = normalizeName(name);
+    const FallbackIcon = getFallbackIcon(normalizedName);
 
     return (
       <span
@@ -42,4 +44,10 @@ export default function ServiceLogo({ name, className = '' }) {
 
 function normalizeName(name) {
   return name.toLowerCase().replaceAll(/[^a-z0-9]/g, '');
+}
+
+function getFallbackIcon(normalizedName) {
+  if (normalizedName === 'wakingup') return Sparkles;
+  if (normalizedName === 'codex') return Code2;
+  return Dumbbell;
 }

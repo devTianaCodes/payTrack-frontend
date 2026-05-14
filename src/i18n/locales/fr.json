@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Accueil",
+    "reminders": "Alertes",
     "settings": "Réglages",
     "subscriptions": "Abonn."
+  },
+  "reminders": {
+    "emptyMessage": "Les rappels de renouvellement apparaîtront ici après leur envoi par PayTrack.",
+    "emptyTitle": "Aucun rappel",
+    "kind": {
+      "one_day": "1 jour avant le renouvellement",
+      "seven_days": "7 jours avant le renouvellement"
+    },
+    "renewal": "Renouvellement",
+    "sent": "Envoyé",
+    "subtitle": "Consultez les rappels de renouvellement envoyés par PayTrack.",
+    "title": "Rappels"
   },
   "settings": {
     "currency": "Devise par défaut",

@@ -8,6 +8,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import RemindersPage from './pages/RemindersPage.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
 import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
 import { ThemeProvider } from './theme/ThemeContext.jsx';
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="/dashboard" replace /> },
           { path: 'dashboard', element: <DashboardPage /> },
+          { path: 'reminders', element: <RemindersPage /> },
           { path: 'subscriptions', element: <SubscriptionsPage /> },
           { path: 'settings', element: <SettingsPage /> },
         ],

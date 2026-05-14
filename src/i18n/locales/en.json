@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Home",
+    "reminders": "Alerts",
     "settings": "Settings",
     "subscriptions": "Subs"
+  },
+  "reminders": {
+    "emptyMessage": "Renewal reminders will appear here after PayTrack sends them.",
+    "emptyTitle": "No reminders yet",
+    "kind": {
+      "one_day": "1 day before renewal",
+      "seven_days": "7 days before renewal"
+    },
+    "renewal": "Renewal",
+    "sent": "Sent",
+    "subtitle": "Review renewal reminders sent by PayTrack.",
+    "title": "Reminders"
   },
   "settings": {
     "currency": "Default currency",

@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Home",
+    "reminders": "Hinweise",
     "settings": "Einstell.",
     "subscriptions": "Abos"
+  },
+  "reminders": {
+    "emptyMessage": "Verlängerungserinnerungen erscheinen hier, nachdem PayTrack sie gesendet hat.",
+    "emptyTitle": "Noch keine Erinnerungen",
+    "kind": {
+      "one_day": "1 Tag vor Verlängerung",
+      "seven_days": "7 Tage vor Verlängerung"
+    },
+    "renewal": "Verlängerung",
+    "sent": "Gesendet",
+    "subtitle": "Prüfe die von PayTrack gesendeten Verlängerungserinnerungen.",
+    "title": "Erinnerungen"
   },
   "settings": {
     "currency": "Standardwährung",

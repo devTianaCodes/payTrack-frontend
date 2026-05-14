@@ -30,8 +30,21 @@
   },
   "navigation": {
     "dashboard": "Home",
+    "reminders": "Avvisi",
     "settings": "Impost.",
     "subscriptions": "Abbon."
+  },
+  "reminders": {
+    "emptyMessage": "I promemoria di rinnovo appariranno qui dopo l'invio da PayTrack.",
+    "emptyTitle": "Nessun promemoria",
+    "kind": {
+      "one_day": "1 giorno prima del rinnovo",
+      "seven_days": "7 giorni prima del rinnovo"
+    },
+    "renewal": "Rinnovo",
+    "sent": "Inviato",
+    "subtitle": "Controlla i promemoria di rinnovo inviati da PayTrack.",
+    "title": "Promemoria"
   },
   "settings": {
     "currency": "Valuta predefinita",
