@@ -147,6 +147,10 @@
       "title": "Gestione"
     },
     "payments": {
+      "amount": "Importo",
+      "paidAt": "Data pagamento",
+      "save": "Salva pagamento",
+      "saving": "Salvataggio...",
       "title": "Pagamenti recenti",
       "viewAll": "Vedi tutto"
     },

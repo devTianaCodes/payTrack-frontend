@@ -110,6 +110,8 @@ export default function SubscriptionsPage() {
   const [confirmation, setConfirmation] = useState(null);
   const [editForm, setEditForm] = useState(null);
   const [editId, setEditId] = useState('');
+  const [paymentForm, setPaymentForm] = useState(null);
+  const [paymentId, setPaymentId] = useState('');
   const [openManageId, setOpenManageId] = useState('');
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
@@ -252,14 +254,36 @@ export default function SubscriptionsPage() {
     }
   }
 
-  async function handleMarkPaid(subscription) {
+  function startMarkPaid(subscription) {
+    setPaymentId(subscription.id);
+    setPaymentForm(getPaymentForm(subscription));
+  }
+
+  function cancelMarkPaid() {
+    setPaymentId('');
+    setPaymentForm(null);
+  }
+
+  function updatePaymentForm(field, value) {
+    setPaymentForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function handleMarkPaid(event, subscription) {
+    event.preventDefault();
     setActionId(subscription.id);
 
     try {
-      const { subscription: updatedSubscription } = await markSubscriptionPaid(subscription.id);
+      const { subscription: updatedSubscription } = await markSubscriptionPaid(subscription.id, {
+        amount: Number(paymentForm.amount),
+        currency: paymentForm.currency,
+        paidAt: paymentForm.paidAt,
+        paymentMethodId: paymentForm.paymentMethodId || null,
+        notes: paymentForm.notes || null,
+      });
       setSubscriptions((current) =>
         current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
       );
+      cancelMarkPaid();
     } catch (requestError) {
       setError(requestError.message);
     } finally {
@@ -379,7 +403,10 @@ export default function SubscriptionsPage() {
               onConfirmAction={confirmAction}
               onDelete={handleDelete}
               onEditChange={updateEditForm}
-              onMarkPaid={handleMarkPaid}
+              onCancelPayment={cancelMarkPaid}
+              onPaymentChange={updatePaymentForm}
+              onPaymentSubmit={handleMarkPaid}
+              onStartMarkPaid={startMarkPaid}
               onRequestConfirmation={requestConfirmation}
               onEditSubmit={handleEditSubmit}
               onRestore={handleRestore}
@@ -388,6 +415,7 @@ export default function SubscriptionsPage() {
                 setOpenManageId((current) => (current === subscription.id ? '' : subscription.id))
               }
               paymentMethods={paymentMethods}
+              paymentForm={paymentId === subscription.id ? paymentForm : null}
               subscription={subscription}
             />
           ))}
@@ -438,7 +466,7 @@ function SubscriptionFilters({ categories, filters, onChange, onClear, paymentMe
             <option value="">{t('subscriptions.filters.all')}</option>
             {paymentMethods.map((paymentMethod) => (
               <option key={paymentMethod.id} value={paymentMethod.id}>
-                {paymentMethod.name}
+                {getPaymentMethodLabel(paymentMethod)}
               </option>
             ))}
           </select>
@@ -569,7 +597,7 @@ function SubscriptionForm({
             <option value="">{t('subscriptions.form.none')}</option>
             {paymentMethods.map((paymentMethod) => (
               <option key={paymentMethod.id} value={paymentMethod.id}>
-                {paymentMethod.name}
+                {getPaymentMethodLabel(paymentMethod)}
               </option>
             ))}
           </select>
@@ -620,12 +648,16 @@ function SubscriptionCard({
   onConfirmAction,
   onEditChange,
   onEditSubmit,
-  onMarkPaid,
+  onCancelPayment,
+  onPaymentChange,
+  onPaymentSubmit,
+  onStartMarkPaid,
   onRequestConfirmation,
   onRestore,
   onStartEdit,
   onToggleManage,
   paymentMethods,
+  paymentForm,
   subscription,
 }) {
   const { t } = useTranslation();
@@ -688,7 +720,7 @@ function SubscriptionCard({
               type="button"
               className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-mint px-3 text-sm font-black text-ink disabled:opacity-40"
               disabled={isDemo || isBusy || isArchived || status === 'cancelled'}
-              onClick={() => onMarkPaid(subscription)}
+              onClick={() => onStartMarkPaid(subscription)}
             >
               <CheckCircle2 size={16} />
               {t('subscriptions.actions.markPaid')}
@@ -723,6 +755,16 @@ function SubscriptionCard({
               paymentMethods={paymentMethods}
             />
           ) : null}
+          {paymentForm ? (
+            <PaymentRecordForm
+              isSaving={isBusy}
+              onCancel={onCancelPayment}
+              onChange={onPaymentChange}
+              onSubmit={(event) => onPaymentSubmit(event, subscription)}
+              paymentForm={paymentForm}
+              paymentMethods={paymentMethods}
+            />
+          ) : null}
           <div className="mt-2">
             <button
               type="button"
@@ -748,6 +790,80 @@ function SubscriptionCard({
         </div>
       ) : null}
     </article>
+  );
+}
+
+function PaymentRecordForm({ isSaving, onCancel, onChange, onSubmit, paymentForm, paymentMethods }) {
+  const { t } = useTranslation();
+
+  return (
+    <form className="mt-3 rounded-2xl bg-white/70 p-3 dark:bg-slate-700" onSubmit={onSubmit}>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <FormField label={t('subscriptions.payments.amount')}>
+          <input
+            required
+            className={inputClassName}
+            min="0.01"
+            step="0.01"
+            type="number"
+            value={paymentForm.amount}
+            onChange={(event) => onChange('amount', event.target.value)}
+          />
+        </FormField>
+        <FormField label={t('subscriptions.payments.paidAt')}>
+          <input
+            required
+            className={inputClassName}
+            type="date"
+            value={paymentForm.paidAt}
+            onChange={(event) => onChange('paidAt', event.target.value)}
+          />
+        </FormField>
+        <FormField label={t('subscriptions.form.currency')}>
+          <select
+            className={inputClassName}
+            value={paymentForm.currency}
+            onChange={(event) => onChange('currency', event.target.value)}
+          >
+            {currencyOptions.map((currency) => (
+              <option key={currency.code} value={currency.code}>
+                {getCurrencyLabel(currency.code)}
+              </option>
+            ))}
+          </select>
+        </FormField>
+        <FormField label={t('subscriptions.form.paymentMethod')}>
+          <select
+            className={inputClassName}
+            value={paymentForm.paymentMethodId}
+            onChange={(event) => onChange('paymentMethodId', event.target.value)}
+          >
+            <option value="">{t('subscriptions.form.none')}</option>
+            {paymentMethods.map((paymentMethod) => (
+              <option key={paymentMethod.id} value={paymentMethod.id}>
+                {getPaymentMethodLabel(paymentMethod)}
+              </option>
+            ))}
+          </select>
+        </FormField>
+        <FormField label={t('subscriptions.form.notes')} className="sm:col-span-2">
+          <textarea
+            className={`${inputClassName} min-h-24 resize-none`}
+            maxLength={500}
+            value={paymentForm.notes}
+            onChange={(event) => onChange('notes', event.target.value)}
+          />
+        </FormField>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <button type="button" className="rounded-2xl bg-sage px-4 py-3 font-black text-ink dark:bg-slate-600 dark:text-white" onClick={onCancel}>
+          {t('actions.cancel')}
+        </button>
+        <button type="submit" className="rounded-2xl bg-mint px-4 py-3 font-black text-ink disabled:opacity-60" disabled={isSaving}>
+          {isSaving ? t('subscriptions.payments.saving') : t('subscriptions.payments.save')}
+        </button>
+      </div>
+    </form>
   );
 }
 
@@ -875,7 +991,7 @@ function ManageEditForm({
             <option value="">{t('subscriptions.form.none')}</option>
             {paymentMethods.map((paymentMethod) => (
               <option key={paymentMethod.id} value={paymentMethod.id}>
-                {paymentMethod.name}
+                {getPaymentMethodLabel(paymentMethod)}
               </option>
             ))}
           </select>
@@ -894,16 +1010,17 @@ function ManageEditForm({
 }
 
 function PaymentMethodBadge({ paymentMethod }) {
-  const isCard = paymentMethod.type === 'card';
-  const name = isCard ? getCardBrand(paymentMethod) : paymentMethod.name;
-  const label = isCard ? `${name} ${maskCard(paymentMethod.lastFour)}` : name;
-
   return (
     <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:bg-slate-700 dark:text-slate-200">
       <CreditCard size={14} />
-      <span>{label}</span>
+      <span>{getPaymentMethodLabel(paymentMethod)}</span>
     </div>
   );
+}
+
+function getPaymentMethodLabel(paymentMethod) {
+  if (paymentMethod.type !== 'card') return paymentMethod.name;
+  return `${getCardBrand(paymentMethod)} ${maskCard(paymentMethod.lastFour)}`;
 }
 
 function PaymentHistory({ payments }) {
@@ -981,6 +1098,16 @@ function getEditForm(subscription) {
     nextRenewalDate: formatInputDate(subscription.nextRenewalDate),
     categoryId: subscription.category?.id ?? '',
     paymentMethodId: subscription.paymentMethod?.id ?? '',
+  };
+}
+
+function getPaymentForm(subscription) {
+  return {
+    amount: String(subscription.price),
+    currency: subscription.currency,
+    paidAt: new Date().toISOString().slice(0, 10),
+    paymentMethodId: subscription.paymentMethod?.id ?? '',
+    notes: '',
   };
 }
 

@@ -147,6 +147,10 @@
       "title": "Management"
     },
     "payments": {
+      "amount": "Amount",
+      "paidAt": "Paid date",
+      "save": "Save payment",
+      "saving": "Saving...",
       "title": "Recent payments",
       "viewAll": "View all"
     },

@@ -59,9 +59,9 @@ export async function restoreSubscription(id) {
   return data.subscription;
 }
 
-export async function markSubscriptionPaid(id) {
+export async function markSubscriptionPaid(id, details = {}) {
   return apiRequest(`/api/subscriptions/${id}/payments`, {
     method: 'POST',
-    body: JSON.stringify({}),
+    body: JSON.stringify(details),
   });
 }

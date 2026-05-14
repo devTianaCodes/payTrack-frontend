@@ -147,6 +147,10 @@
       "title": "Gestion"
     },
     "payments": {
+      "amount": "Montant",
+      "paidAt": "Date de paiement",
+      "save": "Enregistrer le paiement",
+      "saving": "Enregistrement...",
       "title": "Paiements récents",
       "viewAll": "Tout voir"
     },

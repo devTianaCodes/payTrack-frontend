@@ -147,6 +147,10 @@
       "title": "Gestionare"
     },
     "payments": {
+      "amount": "Sumă",
+      "paidAt": "Data plății",
+      "save": "Salvează plata",
+      "saving": "Se salvează...",
       "title": "Plăți recente",
       "viewAll": "Vezi tot"
     },

@@ -147,6 +147,10 @@
       "title": "Verwaltung"
     },
     "payments": {
+      "amount": "Betrag",
+      "paidAt": "Zahlungsdatum",
+      "save": "Zahlung speichern",
+      "saving": "Speichern...",
       "title": "Letzte Zahlungen",
       "viewAll": "Alle ansehen"
     },
