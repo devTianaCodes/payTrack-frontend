@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './i18n/index.js';
 import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';
 import ProtectedRoute from './auth/ProtectedRoute.jsx';
-import DashboardPage from './pages/DashboardPage.jsx';
-import LoginPage from './pages/LoginPage.jsx';
-import RegisterPage from './pages/RegisterPage.jsx';
-import RemindersPage from './pages/RemindersPage.jsx';
-import SettingsPage from './pages/SettingsPage.jsx';
-import SubscriptionPaymentsPage from './pages/SubscriptionPaymentsPage.jsx';
-import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
 import { ThemeProvider } from './theme/ThemeContext.jsx';
 import './styles.css';
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'));
+const LoginPage = lazy(() => import('./pages/LoginPage.jsx'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage.jsx'));
+const RemindersPage = lazy(() => import('./pages/RemindersPage.jsx'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage.jsx'));
+const SubscriptionPaymentsPage = lazy(() => import('./pages/SubscriptionPaymentsPage.jsx'));
+const SubscriptionsPage = lazy(() => import('./pages/SubscriptionsPage.jsx'));
 
 const router = createBrowserRouter([
   {
@@ -41,8 +42,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <Suspense fallback={<PageLoader />}>
+          <RouterProvider router={router} />
+        </Suspense>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );
+
+function PageLoader() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-sage px-5 text-ink dark:bg-slate-600 dark:text-white">
+      <div className="rounded-[2rem] bg-mist p-6 text-center shadow-soft dark:bg-slate-700">
+        <p className="text-sm font-bold text-slate-500 dark:text-slate-300">Loading PayTrack</p>
+      </div>
+    </div>
+  );
+}
