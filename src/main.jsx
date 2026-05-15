@@ -36,14 +36,18 @@ const router = createBrowserRouter([
   },
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
-]);
+], {
+  future: {
+    v7_relativeSplatPath: true,
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <AuthProvider>
         <Suspense fallback={<PageLoader />}>
-          <RouterProvider router={router} />
+          <RouterProvider router={router} future={{ v7_startTransition: true }} />
         </Suspense>
       </AuthProvider>
     </ThemeProvider>
