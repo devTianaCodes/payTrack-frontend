@@ -6,6 +6,7 @@ export default function AuthShell({
   actionLabel,
   alternateLabel,
   alternateTo,
+  children,
   error,
   includeName = false,
   isSubmitting = false,
@@ -72,6 +73,8 @@ export default function AuthShell({
           {error ? (
             <p className="mt-4 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{error}</p>
           ) : null}
+
+          {children}
 
           <button
             type="submit"

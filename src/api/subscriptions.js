@@ -65,3 +65,11 @@ export async function markSubscriptionPaid(id, details = {}) {
     body: JSON.stringify(details),
   });
 }
+
+export async function updateReminderPreferences(id, enabledKinds) {
+  const data = await apiRequest(`/api/subscriptions/${id}/reminder-preferences`, {
+    method: 'PATCH',
+    body: JSON.stringify({ enabledKinds }),
+  });
+  return data.subscription;
+}

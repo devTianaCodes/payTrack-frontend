@@ -9,9 +9,11 @@ import { ThemeProvider } from './theme/ThemeContext.jsx';
 import './styles.css';
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage.jsx'));
 const LoginPage = lazy(() => import('./pages/LoginPage.jsx'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage.jsx'));
 const RemindersPage = lazy(() => import('./pages/RemindersPage.jsx'));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage.jsx'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage.jsx'));
 const SubscriptionPaymentsPage = lazy(() => import('./pages/SubscriptionPaymentsPage.jsx'));
 const SubscriptionsPage = lazy(() => import('./pages/SubscriptionsPage.jsx'));
@@ -34,8 +36,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: '/forgot-password', element: <ForgotPasswordPage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
+  { path: '/reset-password', element: <ResetPasswordPage /> },
 ], {
   future: {
     v7_relativeSplatPath: true,

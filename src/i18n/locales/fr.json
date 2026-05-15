@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Créer un compte",
     "email": "E-mail",
+    "forgotPassword": "Mot de passe oublié ?",
     "login": "Se connecter",
     "name": "Nom",
     "password": "Mot de passe",
     "registerTitle": "Commencez à suivre vos renouvellements",
+    "reset": {
+      "backToLogin": "Retour à la connexion",
+      "confirmPassword": "Confirmer le mot de passe",
+      "confirmSubtitle": "Choisissez un nouveau mot de passe pour votre compte.",
+      "confirmTitle": "Définir un nouveau mot de passe",
+      "devLink": "Lien local de développement : <resetLink>ouvrir la page de réinitialisation</resetLink>",
+      "missingToken": "Ce lien de réinitialisation ne contient pas de jeton.",
+      "newPassword": "Nouveau mot de passe",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "requestSubtitle": "Entrez votre e-mail et PayTrack enverra un lien de réinitialisation.",
+      "requestSuccess": "Si un compte existe pour cet e-mail, un lien de réinitialisation a été envoyé.",
+      "requestTitle": "Réinitialiser le mot de passe",
+      "sendLink": "Envoyer le lien",
+      "updatePassword": "Mettre à jour le mot de passe"
+    },
     "signInTitle": "Bon retour",
     "submitting": "Chargement..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Les abonnements de démonstration ne peuvent pas être modifiés.",
       "note": "D'autres outils de gestion seront ajoutés ici.",
       "title": "Gestion"
+    },
+    "reminders": {
+      "description": "Choisissez quels e-mails de renouvellement PayTrack doit envoyer pour cet abonnement.",
+      "oneDay": "1 jour avant",
+      "sevenDays": "7 jours avant",
+      "title": "E-mails de rappel"
     },
     "payments": {
       "amount": "Montant",

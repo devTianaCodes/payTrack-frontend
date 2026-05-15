@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Konto erstellen",
     "email": "E-Mail",
+    "forgotPassword": "Passwort vergessen?",
     "login": "Anmelden",
     "name": "Name",
     "password": "Passwort",
     "registerTitle": "Beginne, Verlängerungen zu verfolgen",
+    "reset": {
+      "backToLogin": "Zurück zur Anmeldung",
+      "confirmPassword": "Passwort bestätigen",
+      "confirmSubtitle": "Wähle ein neues Passwort für dein Konto.",
+      "confirmTitle": "Neues Passwort festlegen",
+      "devLink": "Lokaler Entwicklungslink: <resetLink>Reset-Seite öffnen</resetLink>",
+      "missingToken": "Diesem Reset-Link fehlt ein Token.",
+      "newPassword": "Neues Passwort",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "requestSubtitle": "Gib deine E-Mail ein und PayTrack sendet einen Reset-Link.",
+      "requestSuccess": "Wenn ein Konto mit dieser E-Mail existiert, wurde ein Reset-Link gesendet.",
+      "requestTitle": "Passwort zurücksetzen",
+      "sendLink": "Reset-Link senden",
+      "updatePassword": "Passwort aktualisieren"
+    },
     "signInTitle": "Willkommen zurück",
     "submitting": "Laden..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Demo-Abos können nicht geändert werden.",
       "note": "Weitere Verwaltungsfunktionen werden hier ergänzt.",
       "title": "Verwaltung"
+    },
+    "reminders": {
+      "description": "Wähle, welche Verlängerungs-E-Mails PayTrack für dieses Abo senden soll.",
+      "oneDay": "1 Tag vorher",
+      "sevenDays": "7 Tage vorher",
+      "title": "Erinnerungs-E-Mails"
     },
     "payments": {
       "amount": "Betrag",

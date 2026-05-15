@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Creează cont",
     "email": "Email",
+    "forgotPassword": "Ai uitat parola?",
     "login": "Autentificare",
     "name": "Nume",
     "password": "Parolă",
     "registerTitle": "Începe să urmărești reînnoirile",
+    "reset": {
+      "backToLogin": "Înapoi la autentificare",
+      "confirmPassword": "Confirmă parola",
+      "confirmSubtitle": "Alege o parolă nouă pentru contul tău.",
+      "confirmTitle": "Setează parola nouă",
+      "devLink": "Link local de dezvoltare: <resetLink>deschide pagina de resetare</resetLink>",
+      "missingToken": "Acest link de resetare nu are token.",
+      "newPassword": "Parolă nouă",
+      "passwordMismatch": "Parolele nu se potrivesc",
+      "requestSubtitle": "Introdu emailul și PayTrack va trimite un link de resetare.",
+      "requestSuccess": "Dacă există un cont pentru acest email, a fost trimis un link de resetare.",
+      "requestTitle": "Resetează parola",
+      "sendLink": "Trimite linkul",
+      "updatePassword": "Actualizează parola"
+    },
     "signInTitle": "Bine ai revenit",
     "submitting": "Se încarcă..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Abonamentele demo nu pot fi modificate.",
       "note": "Aici vor apărea mai multe instrumente de gestionare.",
       "title": "Gestionare"
+    },
+    "reminders": {
+      "description": "Alege ce emailuri de reînnoire să trimită PayTrack pentru acest abonament.",
+      "oneDay": "Cu 1 zi înainte",
+      "sevenDays": "Cu 7 zile înainte",
+      "title": "Emailuri de reamintire"
     },
     "payments": {
       "amount": "Sumă",

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { confirmPasswordReset } from '../api/auth.js';
 import { apiRequest } from '../api/client.js';
 import { updateMe } from '../api/user.js';
 
@@ -51,6 +52,11 @@ export function AuthProvider({ children }) {
       async logout() {
         await apiRequest('/api/auth/logout', { method: 'POST' });
         setUser(null);
+      },
+      async resetPassword(details) {
+        const data = await confirmPasswordReset(details);
+        setUser(data.user);
+        return data.user;
       },
       async updateProfile(details) {
         const updatedUser = await updateMe(details);

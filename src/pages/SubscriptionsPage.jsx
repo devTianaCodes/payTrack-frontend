@@ -22,6 +22,7 @@ import {
   getSubscriptions,
   markSubscriptionPaid,
   restoreSubscription,
+  updateReminderPreferences,
   updateSubscription,
 } from '../api/subscriptions.js';
 import { useAuth } from '../auth/AuthContext.jsx';
@@ -113,6 +114,7 @@ export default function SubscriptionsPage() {
   const [paymentForm, setPaymentForm] = useState(null);
   const [paymentId, setPaymentId] = useState('');
   const [openManageId, setOpenManageId] = useState('');
+  const [reminderActionId, setReminderActionId] = useState('');
   const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
   const [form, setForm] = useState(() => getInitialForm(user?.defaultCurrency));
@@ -328,6 +330,26 @@ export default function SubscriptionsPage() {
     }
   }
 
+  async function handleReminderPreferenceChange(subscription, kind, isEnabled) {
+    setReminderActionId(subscription.id);
+
+    const enabledKinds = getEnabledReminderKinds(subscription);
+    const nextEnabledKinds = isEnabled
+      ? [...new Set([...enabledKinds, kind])]
+      : enabledKinds.filter((enabledKind) => enabledKind !== kind);
+
+    try {
+      const updatedSubscription = await updateReminderPreferences(subscription.id, nextEnabledKinds);
+      setSubscriptions((current) =>
+        current.map((item) => (item.id === updatedSubscription.id ? updatedSubscription : item)),
+      );
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setReminderActionId('');
+    }
+  }
+
   return (
     <section className="space-y-5">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -406,6 +428,7 @@ export default function SubscriptionsPage() {
               onCancelPayment={cancelMarkPaid}
               onPaymentChange={updatePaymentForm}
               onPaymentSubmit={handleMarkPaid}
+              onReminderPreferenceChange={handleReminderPreferenceChange}
               onStartMarkPaid={startMarkPaid}
               onRequestConfirmation={requestConfirmation}
               onEditSubmit={handleEditSubmit}
@@ -416,6 +439,7 @@ export default function SubscriptionsPage() {
               }
               paymentMethods={paymentMethods}
               paymentForm={paymentId === subscription.id ? paymentForm : null}
+              reminderActionId={reminderActionId}
               subscription={subscription}
             />
           ))}
@@ -651,6 +675,7 @@ function SubscriptionCard({
   onCancelPayment,
   onPaymentChange,
   onPaymentSubmit,
+  onReminderPreferenceChange,
   onStartMarkPaid,
   onRequestConfirmation,
   onRestore,
@@ -658,6 +683,7 @@ function SubscriptionCard({
   onToggleManage,
   paymentMethods,
   paymentForm,
+  reminderActionId,
   subscription,
 }) {
   const { t } = useTranslation();
@@ -765,6 +791,11 @@ function SubscriptionCard({
               paymentMethods={paymentMethods}
             />
           ) : null}
+          <ReminderPreferenceControls
+            disabled={isDemo || reminderActionId === subscription.id}
+            onChange={(kind, isEnabled) => onReminderPreferenceChange(subscription, kind, isEnabled)}
+            subscription={subscription}
+          />
           <div className="mt-2">
             <button
               type="button"
@@ -790,6 +821,39 @@ function SubscriptionCard({
         </div>
       ) : null}
     </article>
+  );
+}
+
+function ReminderPreferenceControls({ disabled, onChange, subscription }) {
+  const { t } = useTranslation();
+  const enabledKinds = getEnabledReminderKinds(subscription);
+
+  return (
+    <div className="mt-3 rounded-2xl bg-white/70 p-3 dark:bg-slate-700">
+      <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-300">
+        {t('subscriptions.reminders.title')}
+      </p>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        {reminderPreferenceOptions.map((option) => (
+          <label
+            className="flex min-h-11 items-center gap-3 rounded-2xl bg-sage px-3 text-sm font-black text-ink dark:bg-slate-600 dark:text-white"
+            key={option.kind}
+          >
+            <input
+              checked={enabledKinds.includes(option.kind)}
+              className="h-4 w-4 accent-coral"
+              disabled={disabled}
+              onChange={(event) => onChange(option.kind, event.target.checked)}
+              type="checkbox"
+            />
+            <span>{t(option.labelKey)}</span>
+          </label>
+        ))}
+      </div>
+      <p className="mt-2 text-xs font-bold text-slate-500 dark:text-slate-300">
+        {t('subscriptions.reminders.description')}
+      </p>
+    </div>
   );
 }
 
@@ -1111,6 +1175,16 @@ function getPaymentForm(subscription) {
   };
 }
 
+function getEnabledReminderKinds(subscription) {
+  const preferences = subscription.reminderPreferences ?? [];
+
+  if (preferences.length === 0) {
+    return reminderPreferenceOptions.map((option) => option.kind);
+  }
+
+  return preferences.filter((preference) => preference.isEnabled).map((preference) => preference.kind);
+}
+
 function getInitialFilters() {
   return {
     status: 'all',
@@ -1147,3 +1221,8 @@ function formatInputDate(value) {
 
 const inputClassName =
   'mt-2 w-full rounded-2xl border border-emerald-100 bg-mist px-4 py-3 font-bold text-ink outline-none transition focus:border-mint focus:bg-white dark:border-slate-600 dark:bg-slate-600 dark:text-white dark:focus:bg-slate-500';
+
+const reminderPreferenceOptions = [
+  { kind: 'seven_days', labelKey: 'subscriptions.reminders.sevenDays' },
+  { kind: 'one_day', labelKey: 'subscriptions.reminders.oneDay' },
+];

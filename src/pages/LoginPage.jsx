@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
 import AuthShell from '../components/AuthShell.jsx';
 
@@ -41,6 +41,10 @@ export default function LoginPage() {
       error={error}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
-    />
+    >
+      <Link className="mt-4 block text-center text-sm font-bold text-coral" to="/forgot-password">
+        {t('auth.forgotPassword')}
+      </Link>
+    </AuthShell>
   );
 }

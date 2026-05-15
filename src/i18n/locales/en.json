@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Create account",
     "email": "Email",
+    "forgotPassword": "Forgot password?",
     "login": "Log in",
     "name": "Name",
     "password": "Password",
     "registerTitle": "Start tracking renewals",
+    "reset": {
+      "backToLogin": "Back to login",
+      "confirmPassword": "Confirm password",
+      "confirmSubtitle": "Choose a new password for your account.",
+      "confirmTitle": "Set new password",
+      "devLink": "Local dev link: <resetLink>open reset page</resetLink>",
+      "missingToken": "This reset link is missing a token.",
+      "newPassword": "New password",
+      "passwordMismatch": "Passwords do not match",
+      "requestSubtitle": "Enter your email and PayTrack will send a reset link.",
+      "requestSuccess": "If an account exists for that email, a reset link has been sent.",
+      "requestTitle": "Reset password",
+      "sendLink": "Send reset link",
+      "updatePassword": "Update password"
+    },
     "signInTitle": "Welcome back",
     "submitting": "Loading..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Demo subscriptions cannot be changed.",
       "note": "More management tools will live here as this screen grows.",
       "title": "Management"
+    },
+    "reminders": {
+      "description": "Choose which renewal emails PayTrack should send for this subscription.",
+      "oneDay": "1 day before",
+      "sevenDays": "7 days before",
+      "title": "Reminder emails"
     },
     "payments": {
       "amount": "Amount",

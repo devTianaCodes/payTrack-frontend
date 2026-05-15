@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Crea account",
     "email": "Email",
+    "forgotPassword": "Password dimenticata?",
     "login": "Accedi",
     "name": "Nome",
     "password": "Password",
     "registerTitle": "Inizia a tracciare i rinnovi",
+    "reset": {
+      "backToLogin": "Torna al login",
+      "confirmPassword": "Conferma password",
+      "confirmSubtitle": "Scegli una nuova password per il tuo account.",
+      "confirmTitle": "Imposta nuova password",
+      "devLink": "Link locale di sviluppo: <resetLink>apri pagina reset</resetLink>",
+      "missingToken": "Questo link di reset non contiene un token.",
+      "newPassword": "Nuova password",
+      "passwordMismatch": "Le password non coincidono",
+      "requestSubtitle": "Inserisci la tua email e PayTrack invierà un link di reset.",
+      "requestSuccess": "Se esiste un account con questa email, è stato inviato un link di reset.",
+      "requestTitle": "Reimposta password",
+      "sendLink": "Invia link di reset",
+      "updatePassword": "Aggiorna password"
+    },
     "signInTitle": "Bentornato",
     "submitting": "Caricamento..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Gli abbonamenti demo non possono essere modificati.",
       "note": "Qui aggiungeremo altri strumenti di gestione.",
       "title": "Gestione"
+    },
+    "reminders": {
+      "description": "Scegli quali email di rinnovo PayTrack deve inviare per questo abbonamento.",
+      "oneDay": "1 giorno prima",
+      "sevenDays": "7 giorni prima",
+      "title": "Email promemoria"
     },
     "payments": {
       "amount": "Importo",

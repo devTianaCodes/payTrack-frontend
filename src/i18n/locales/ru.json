@@ -14,10 +14,26 @@
   "auth": {
     "createAccount": "Создать аккаунт",
     "email": "Email",
+    "forgotPassword": "Забыли пароль?",
     "login": "Войти",
     "name": "Имя",
     "password": "Пароль",
     "registerTitle": "Начните отслеживать продления",
+    "reset": {
+      "backToLogin": "Назад ко входу",
+      "confirmPassword": "Подтвердите пароль",
+      "confirmSubtitle": "Выберите новый пароль для аккаунта.",
+      "confirmTitle": "Задать новый пароль",
+      "devLink": "Локальная ссылка для разработки: <resetLink>открыть страницу сброса</resetLink>",
+      "missingToken": "В этой ссылке сброса нет токена.",
+      "newPassword": "Новый пароль",
+      "passwordMismatch": "Пароли не совпадают",
+      "requestSubtitle": "Введите email, и PayTrack отправит ссылку для сброса.",
+      "requestSuccess": "Если аккаунт с этим email существует, ссылка для сброса отправлена.",
+      "requestTitle": "Сбросить пароль",
+      "sendLink": "Отправить ссылку",
+      "updatePassword": "Обновить пароль"
+    },
     "signInTitle": "С возвращением",
     "submitting": "Загрузка..."
   },
@@ -155,6 +171,12 @@
       "demoNote": "Демо-подписки нельзя изменить.",
       "note": "Здесь появятся дополнительные инструменты управления.",
       "title": "Управление"
+    },
+    "reminders": {
+      "description": "Выберите, какие письма о продлении PayTrack должен отправлять для этой подписки.",
+      "oneDay": "За 1 день",
+      "sevenDays": "За 7 дней",
+      "title": "Письма-напоминания"
     },
     "payments": {
       "amount": "Сумма",
