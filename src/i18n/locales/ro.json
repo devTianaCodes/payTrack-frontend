@@ -69,8 +69,13 @@
     "name": "Nume afișat",
     "paymentMethods": {
       "add": "Adaugă",
+      "confirmDelete": "Șterge metoda",
+      "confirmMessage": "Abonamentele existente își păstrează istoricul, dar această metodă nu va mai fi disponibilă.",
+      "confirmTitle": "Ștergi această metodă de plată?",
       "delete": "Șterge metoda de plată",
       "deleted": "Metodă de plată ștearsă",
+      "empty": "Nicio metodă de plată.",
+      "keep": "Păstrează",
       "lastFour": "Ultimele patru",
       "name": "Nume",
       "saved": "Metodă de plată salvată",

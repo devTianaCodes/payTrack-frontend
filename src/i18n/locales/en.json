@@ -69,8 +69,13 @@
     "name": "Display name",
     "paymentMethods": {
       "add": "Add",
+      "confirmDelete": "Delete method",
+      "confirmMessage": "Existing subscriptions keep their history, but this method will no longer be available.",
+      "confirmTitle": "Delete this payment method?",
       "delete": "Delete payment method",
       "deleted": "Payment method deleted",
+      "empty": "No payment methods yet.",
+      "keep": "Keep it",
       "lastFour": "Last four",
       "name": "Name",
       "saved": "Payment method saved",

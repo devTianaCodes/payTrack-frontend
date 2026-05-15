@@ -15,6 +15,7 @@ export default function SettingsPage() {
   const [form, setForm] = useState(() => getInitialForm(user, isDarkMode));
   const [isSaving, setIsSaving] = useState(false);
   const [isPaymentSaving, setIsPaymentSaving] = useState(false);
+  const [deletePaymentMethodId, setDeletePaymentMethodId] = useState('');
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [paymentMethodForm, setPaymentMethodForm] = useState(getInitialPaymentMethodForm);
   const [message, setMessage] = useState('');
@@ -99,6 +100,19 @@ export default function SettingsPage() {
     } catch (requestError) {
       setError(requestError.message);
     }
+  }
+
+  function requestPaymentMethodDelete(paymentMethod) {
+    setDeletePaymentMethodId(paymentMethod.id);
+  }
+
+  function cancelPaymentMethodDelete() {
+    setDeletePaymentMethodId('');
+  }
+
+  async function confirmPaymentMethodDelete(paymentMethod) {
+    await handlePaymentMethodDelete(paymentMethod);
+    cancelPaymentMethodDelete();
   }
 
   return (
@@ -275,10 +289,18 @@ export default function SettingsPage() {
         </form>
 
         <div className="mt-5 grid gap-3">
+          {paymentMethods.length === 0 ? (
+            <div className="rounded-2xl bg-mist p-4 text-sm font-bold text-slate-500 transition-colors dark:bg-slate-600 dark:text-slate-300">
+              {t('settings.paymentMethods.empty')}
+            </div>
+          ) : null}
           {paymentMethods.map((paymentMethod) => (
             <PaymentMethodRow
+              isConfirmingDelete={deletePaymentMethodId === paymentMethod.id}
               key={paymentMethod.id}
-              onDelete={handlePaymentMethodDelete}
+              onCancelDelete={cancelPaymentMethodDelete}
+              onConfirmDelete={confirmPaymentMethodDelete}
+              onRequestDelete={requestPaymentMethodDelete}
               paymentMethod={paymentMethod}
             />
           ))}
@@ -288,32 +310,62 @@ export default function SettingsPage() {
   );
 }
 
-function PaymentMethodRow({ onDelete, paymentMethod }) {
+function PaymentMethodRow({
+  isConfirmingDelete,
+  onCancelDelete,
+  onConfirmDelete,
+  onRequestDelete,
+  paymentMethod,
+}) {
   const { t } = useTranslation();
   const isCard = paymentMethod.type === 'card';
   const displayName = isCard ? `${cleanCardName(paymentMethod.name)} ${maskCard(paymentMethod.lastFour)}` : paymentMethod.name;
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl bg-mist p-4 transition-colors dark:bg-slate-600">
-      <div className="flex items-center gap-3">
-        <div className="rounded-full bg-white p-2 text-ink dark:bg-slate-700 dark:text-white">
-          <CreditCard size={18} />
+    <div className="rounded-2xl bg-mist p-4 transition-colors dark:bg-slate-600">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="rounded-full bg-white p-2 text-ink dark:bg-slate-700 dark:text-white">
+            <CreditCard size={18} />
+          </div>
+          <div>
+            <p className="font-black">{displayName}</p>
+            <p className="text-sm font-bold text-slate-500 dark:text-slate-300">
+              {t(`settings.paymentMethods.types.${getPaymentMethodTypeKey(paymentMethod.type)}`)}
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="font-black">{displayName}</p>
-          <p className="text-sm font-bold text-slate-500 dark:text-slate-300">
-            {t(`settings.paymentMethods.types.${getPaymentMethodTypeKey(paymentMethod.type)}`)}
-          </p>
-        </div>
+        <button
+          type="button"
+          className="rounded-full bg-coral/10 p-3 text-coral"
+          aria-label={t('settings.paymentMethods.delete')}
+          onClick={() => onRequestDelete(paymentMethod)}
+        >
+          <Trash2 size={18} />
+        </button>
       </div>
-      <button
-        type="button"
-        className="rounded-full bg-coral/10 p-3 text-coral"
-        aria-label={t('settings.paymentMethods.delete')}
-        onClick={() => onDelete(paymentMethod)}
-      >
-        <Trash2 size={18} />
-      </button>
+      {isConfirmingDelete ? (
+        <div className="mt-3 rounded-2xl bg-coral/10 p-3 text-coral">
+          <p className="text-sm font-black">{t('settings.paymentMethods.confirmTitle')}</p>
+          <p className="mt-1 text-xs font-bold">{t('settings.paymentMethods.confirmMessage')}</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <button
+              type="button"
+              className="rounded-2xl bg-white px-4 py-3 font-black text-ink dark:bg-slate-700 dark:text-white"
+              onClick={onCancelDelete}
+            >
+              {t('settings.paymentMethods.keep')}
+            </button>
+            <button
+              type="button"
+              className="rounded-2xl bg-coral px-4 py-3 font-black text-white"
+              onClick={() => onConfirmDelete(paymentMethod)}
+            >
+              {t('settings.paymentMethods.confirmDelete')}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

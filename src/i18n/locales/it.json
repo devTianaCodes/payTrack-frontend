@@ -69,8 +69,13 @@
     "name": "Nome visualizzato",
     "paymentMethods": {
       "add": "Aggiungi",
+      "confirmDelete": "Elimina metodo",
+      "confirmMessage": "Gli abbonamenti esistenti mantengono lo storico, ma questo metodo non sarà più disponibile.",
+      "confirmTitle": "Eliminare questo metodo di pagamento?",
       "delete": "Elimina metodo di pagamento",
       "deleted": "Metodo di pagamento eliminato",
+      "empty": "Nessun metodo di pagamento.",
+      "keep": "Mantieni",
       "lastFour": "Ultime quattro",
       "name": "Nome",
       "saved": "Metodo di pagamento salvato",

@@ -69,8 +69,13 @@
     "name": "Anzeigename",
     "paymentMethods": {
       "add": "Hinzufügen",
+      "confirmDelete": "Methode löschen",
+      "confirmMessage": "Bestehende Abos behalten ihren Verlauf, aber diese Methode ist nicht mehr verfügbar.",
+      "confirmTitle": "Diese Zahlungsmethode löschen?",
       "delete": "Zahlungsmethode löschen",
       "deleted": "Zahlungsmethode gelöscht",
+      "empty": "Noch keine Zahlungsmethoden.",
+      "keep": "Behalten",
       "lastFour": "Letzte vier",
       "name": "Name",
       "saved": "Zahlungsmethode gespeichert",
