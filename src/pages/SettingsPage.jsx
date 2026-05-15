@@ -7,6 +7,7 @@ import { currencyOptions, getCurrencyLabel } from '../constants/currencies.js';
 import { languageOptions } from '../constants/languages.js';
 import i18n from '../i18n/index.js';
 import { useTheme } from '../theme/ThemeContext.jsx';
+import { getPaymentMethodLabel } from '../utils/paymentMethods.js';
 
 export default function SettingsPage() {
   const { t } = useTranslation();
@@ -318,8 +319,7 @@ function PaymentMethodRow({
   paymentMethod,
 }) {
   const { t } = useTranslation();
-  const isCard = paymentMethod.type === 'card';
-  const displayName = isCard ? `${cleanCardName(paymentMethod.name)} ${maskCard(paymentMethod.lastFour)}` : paymentMethod.name;
+  const displayName = getPaymentMethodLabel(paymentMethod);
 
   return (
     <div className="rounded-2xl bg-mist p-4 transition-colors dark:bg-slate-600">
@@ -390,14 +390,6 @@ function getInitialPaymentMethodForm() {
 
 function comparePaymentMethods(left, right) {
   return left.name.localeCompare(right.name);
-}
-
-function cleanCardName(name) {
-  return name.replace(/\s+ending\s+\d{4}$/i, '').replace(/\s+\d{4}$/i, '').trim();
-}
-
-function maskCard(lastFour) {
-  return lastFour ? `**** ${lastFour}` : '****';
 }
 
 function getPaymentMethodTypeKey(type) {

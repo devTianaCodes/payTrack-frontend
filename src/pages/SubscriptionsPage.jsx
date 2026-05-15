@@ -29,6 +29,7 @@ import { useAuth } from '../auth/AuthContext.jsx';
 import ServiceLogo from '../components/ServiceLogo.jsx';
 import StateMessage from '../components/StateMessage.jsx';
 import { currencyOptions, getCurrencyLabel } from '../constants/currencies.js';
+import { getPaymentMethodLabel } from '../utils/paymentMethods.js';
 
 const demoSubscriptions = [
   {
@@ -1082,11 +1083,6 @@ function PaymentMethodBadge({ paymentMethod }) {
   );
 }
 
-function getPaymentMethodLabel(paymentMethod) {
-  if (paymentMethod.type !== 'card') return paymentMethod.name;
-  return `${getCardBrand(paymentMethod)} ${maskCard(paymentMethod.lastFour)}`;
-}
-
 function PaymentHistory({ payments }) {
   const { t } = useTranslation();
 
@@ -1127,17 +1123,6 @@ function formatDate(value) {
     month: 'short',
     day: 'numeric',
   }).format(new Date(value));
-}
-
-function maskCard(lastFour) {
-  return lastFour ? `**** ${lastFour}` : '****';
-}
-
-function getCardBrand(paymentMethod) {
-  return paymentMethod.name
-    .replace(/\s+ending\s+\d{4}$/i, '')
-    .replace(/\s+\d{4}$/i, '')
-    .trim();
 }
 
 function getInitialForm(defaultCurrency = 'USD') {

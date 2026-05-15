@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getSubscription, getSubscriptionPayments } from '../api/subscriptions.js';
 import ServiceLogo from '../components/ServiceLogo.jsx';
 import StateMessage from '../components/StateMessage.jsx';
+import { getPaymentMethodLabel } from '../utils/paymentMethods.js';
 
 export default function SubscriptionPaymentsPage() {
   const { id } = useParams();
@@ -187,22 +188,6 @@ function filterPaymentsByYear(payments, selectedYear) {
   return payments.filter(
     (payment) => String(new Date(payment.paidAt).getFullYear()) === selectedYear,
   );
-}
-
-function getPaymentMethodLabel(paymentMethod) {
-  if (paymentMethod.type !== 'card') return paymentMethod.name;
-  return `${getCardBrand(paymentMethod)} ${maskCard(paymentMethod.lastFour)}`;
-}
-
-function getCardBrand(paymentMethod) {
-  return paymentMethod.name
-    .replace(/\s+ending\s+\d{4}$/i, '')
-    .replace(/\s+\d{4}$/i, '')
-    .trim();
-}
-
-function maskCard(lastFour) {
-  return lastFour ? `**** ${lastFour}` : '****';
 }
 
 function formatMoney(amount, currency) {
