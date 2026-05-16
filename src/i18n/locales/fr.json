@@ -49,9 +49,9 @@
     "dashboard": "Accueil",
     "mobile": "Navigation mobile",
     "primary": "Navigation principale",
-    "reminders": "Alertes",
-    "settings": "Réglages",
-    "subscriptions": "Abonn."
+    "reminders": "Notifications",
+    "settings": "Paramètres",
+    "subscriptions": "Abonnements"
   },
   "payments": {
     "allYears": "Toutes les années",

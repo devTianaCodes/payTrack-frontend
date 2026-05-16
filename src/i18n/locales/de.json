@@ -46,12 +46,12 @@
     "yearlyProjection": "Jahresprognose"
   },
   "navigation": {
-    "dashboard": "Home",
+    "dashboard": "Startseite",
     "mobile": "Mobile Navigation",
     "primary": "Hauptnavigation",
-    "reminders": "Hinweise",
-    "settings": "Einstell.",
-    "subscriptions": "Abos"
+    "reminders": "Benachrichtigungen",
+    "settings": "Einstellungen",
+    "subscriptions": "Abonnements"
   },
   "payments": {
     "allYears": "Alle Jahre",

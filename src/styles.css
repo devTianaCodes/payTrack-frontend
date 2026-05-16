@@ -54,3 +54,7 @@ a {
 .skip-link:focus-visible {
   transform: translateY(0);
 }
+
+.nav-label {
+  overflow-wrap: anywhere;
+}

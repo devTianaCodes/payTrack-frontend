@@ -49,9 +49,9 @@
     "dashboard": "Home",
     "mobile": "Mobile navigation",
     "primary": "Primary navigation",
-    "reminders": "Alerts",
+    "reminders": "Notifications",
     "settings": "Settings",
-    "subscriptions": "Subs"
+    "subscriptions": "Subscriptions"
   },
   "payments": {
     "allYears": "All years",

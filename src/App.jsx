@@ -78,13 +78,13 @@ function NavItem({ item, label }) {
       to={item.to}
       className={({ isActive }) =>
         [
-          'flex min-h-14 flex-col items-center justify-center rounded-2xl text-xs font-bold transition',
+          'flex min-h-16 flex-col items-center justify-center rounded-2xl px-1 text-[0.68rem] font-bold leading-tight transition',
           isActive ? 'bg-mint text-ink' : 'text-slate-500 dark:text-slate-200',
         ].join(' ')
       }
     >
       <Icon size={19} />
-      <span>{label}</span>
+      <span className="nav-label mt-1 max-w-full text-center">{label}</span>
     </NavLink>
   );
 }

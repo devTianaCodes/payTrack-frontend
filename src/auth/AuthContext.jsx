@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { confirmPasswordReset } from '../api/auth.js';
 import { apiRequest } from '../api/client.js';
 import { updateMe } from '../api/user.js';
+import i18n from '../i18n/index.js';
 
 const AuthContext = createContext(null);
 
@@ -27,6 +28,12 @@ export function AuthProvider({ children }) {
       isActive = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (user?.locale && i18n.language !== user.locale) {
+      i18n.changeLanguage(user.locale);
+    }
+  }, [user?.locale]);
 
   const value = useMemo(
     () => ({
