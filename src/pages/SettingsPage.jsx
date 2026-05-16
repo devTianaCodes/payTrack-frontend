@@ -1,4 +1,4 @@
-import { CreditCard, Plus, Trash2 } from 'lucide-react';
+import { Check, ChevronDown, CreditCard, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createPaymentMethod, deletePaymentMethod, getPaymentMethods } from '../api/paymentMethods.js';
@@ -17,6 +17,7 @@ export default function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isPaymentSaving, setIsPaymentSaving] = useState(false);
   const [deletePaymentMethodId, setDeletePaymentMethodId] = useState('');
+  const [openSelect, setOpenSelect] = useState('');
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [paymentMethodForm, setPaymentMethodForm] = useState(getInitialPaymentMethodForm);
   const [message, setMessage] = useState('');
@@ -139,49 +140,47 @@ export default function SettingsPage() {
             />
           </label>
 
-          <label className="block">
-            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">{t('settings.language')}</span>
-            <select
-              className={inputClassName}
+          <div className="block">
+            <SettingsSelect
+              id="settings-language"
+              isOpen={openSelect === 'language'}
+              label={t('settings.language')}
+              onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'language' : '')}
+              options={languageOptions.map((language) => ({
+                label: language.name,
+                value: language.code,
+              }))}
+              onChange={(value) => updateField('locale', value)}
               value={form.locale}
-              onChange={(event) => updateField('locale', event.target.value)}
-            >
-              {languageOptions.map((language) => (
-                <option key={language.code} value={language.code}>
-                  {language.name}
-                </option>
-              ))}
-            </select>
-          </label>
+            />
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">{t('settings.currency')}</span>
-            <select
-              className={inputClassName}
+          <div className="block">
+            <SettingsSelect
+              id="settings-currency"
+              isOpen={openSelect === 'currency'}
+              label={t('settings.currency')}
+              onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'currency' : '')}
+              options={currencyOptions.map((currency) => ({
+                label: getCurrencyLabel(currency.code),
+                value: currency.code,
+              }))}
+              onChange={(value) => updateField('defaultCurrency', value)}
               value={form.defaultCurrency}
-              onChange={(event) => updateField('defaultCurrency', event.target.value)}
-            >
-              {currencyOptions.map((currency) => (
-                <option key={currency.code} value={currency.code}>
-                  {getCurrencyLabel(currency.code)}
-                </option>
-              ))}
-            </select>
-          </label>
+            />
+          </div>
 
-          <label className="block md:col-span-2">
-            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">{t('settings.timezone')}</span>
-            <select
-              className={inputClassName}
+          <div className="block md:col-span-2">
+            <SettingsSelect
+              id="settings-timezone"
+              isOpen={openSelect === 'timezone'}
+              label={t('settings.timezone')}
+              onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'timezone' : '')}
+              options={timezoneOptions}
+              onChange={(value) => updateField('timezone', value)}
               value={form.timezone}
-              onChange={(event) => updateField('timezone', event.target.value)}
-            >
-              <option value="Europe/Rome">Europe/Rome</option>
-              <option value="UTC">UTC</option>
-              <option value="Europe/London">Europe/London</option>
-              <option value="America/New_York">America/New_York</option>
-            </select>
-          </label>
+            />
+          </div>
 
           <div className="md:col-span-2">
             <div className="flex items-center justify-between gap-4 rounded-2xl border border-emerald-100 bg-mist p-4 transition-colors dark:border-slate-600 dark:bg-slate-600">
@@ -246,22 +245,23 @@ export default function SettingsPage() {
             />
           </label>
 
-          <label className="block">
-            <span className="text-sm font-bold text-slate-500 dark:text-slate-300">
-              {t('settings.paymentMethods.type')}
-            </span>
-            <select
-              className={inputClassName}
+          <div className="block">
+            <SettingsSelect
+              id="payment-method-type"
+              isOpen={openSelect === 'paymentMethodType'}
+              label={t('settings.paymentMethods.type')}
+              onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'paymentMethodType' : '')}
+              options={[
+                { label: t('settings.paymentMethods.types.card'), value: 'card' },
+                { label: t('settings.paymentMethods.types.paypal'), value: 'paypal' },
+                { label: t('settings.paymentMethods.types.bankAccount'), value: 'bank_account' },
+                { label: t('settings.paymentMethods.types.cash'), value: 'cash' },
+                { label: t('settings.paymentMethods.types.other'), value: 'other' },
+              ]}
+              onChange={(value) => updatePaymentMethodField('type', value)}
               value={paymentMethodForm.type}
-              onChange={(event) => updatePaymentMethodField('type', event.target.value)}
-            >
-              <option value="card">{t('settings.paymentMethods.types.card')}</option>
-              <option value="paypal">{t('settings.paymentMethods.types.paypal')}</option>
-              <option value="bank_account">{t('settings.paymentMethods.types.bankAccount')}</option>
-              <option value="cash">{t('settings.paymentMethods.types.cash')}</option>
-              <option value="other">{t('settings.paymentMethods.types.other')}</option>
-            </select>
-          </label>
+            />
+          </div>
 
           <label className="block">
             <span className="text-sm font-bold text-slate-500 dark:text-slate-300">
@@ -308,6 +308,70 @@ export default function SettingsPage() {
         </div>
       </section>
     </section>
+  );
+}
+
+function SettingsSelect({ id, isOpen, label, onChange, onOpenChange, options, value }) {
+  const selectedOption = options.find((option) => option.value === value) ?? options[0];
+
+  function selectOption(nextValue) {
+    onChange(nextValue);
+    onOpenChange(false);
+  }
+
+  return (
+    <div className="relative">
+      <span className="text-sm font-bold text-slate-500 dark:text-slate-300">{label}</span>
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        aria-labelledby={`${id}-label ${id}-value`}
+        className={`${inputClassName} flex items-center justify-between gap-3 text-left`}
+        onClick={() => onOpenChange(!isOpen)}
+      >
+        <span id={`${id}-label`} className="sr-only">
+          {label}
+        </span>
+        <span id={`${id}-value`} className="truncate">
+          {selectedOption.label}
+        </span>
+        <ChevronDown
+          className={isOpen ? 'shrink-0 rotate-180 transition' : 'shrink-0 transition'}
+          size={18}
+        />
+      </button>
+      {isOpen ? (
+        <div
+          role="listbox"
+          aria-labelledby={`${id}-label`}
+          className="absolute left-0 right-0 top-full z-30 mt-2 max-h-64 overflow-y-auto rounded-2xl border border-emerald-100 bg-white p-2 shadow-soft dark:border-slate-600 dark:bg-slate-700"
+        >
+          {options.map((option) => {
+            const isSelected = option.value === value;
+
+            return (
+              <button
+                type="button"
+                role="option"
+                aria-selected={isSelected}
+                className={[
+                  'flex min-h-11 w-full items-center justify-between gap-3 rounded-xl px-3 text-left text-sm font-black transition',
+                  isSelected
+                    ? 'bg-mint text-ink dark:bg-ink dark:text-white'
+                    : 'text-slate-600 hover:bg-mint/70 hover:text-ink dark:text-slate-100 dark:hover:bg-ink dark:hover:text-white',
+                ].join(' ')}
+                key={option.value}
+                onClick={() => selectOption(option.value)}
+              >
+                <span>{option.label}</span>
+                {isSelected ? <Check size={16} /> : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -396,6 +460,13 @@ function getPaymentMethodTypeKey(type) {
   if (type === 'bank_account') return 'bankAccount';
   return type;
 }
+
+const timezoneOptions = [
+  { label: 'Europe/Rome', value: 'Europe/Rome' },
+  { label: 'UTC', value: 'UTC' },
+  { label: 'Europe/London', value: 'Europe/London' },
+  { label: 'America/New_York', value: 'America/New_York' },
+];
 
 const inputClassName =
   'mt-2 w-full rounded-2xl border border-emerald-100 bg-mist px-4 py-3 font-bold text-ink outline-none transition focus:border-mint focus:bg-white dark:border-slate-600 dark:bg-slate-600 dark:text-white dark:focus:bg-slate-500';
