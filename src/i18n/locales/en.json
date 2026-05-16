@@ -4,7 +4,8 @@
     "cancel": "Cancel",
     "close": "Close",
     "filter": "Filter",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "skipToContent": "Skip to content"
   },
   "app": {
     "loading": "Loading PayTrack",
@@ -46,6 +47,8 @@
   },
   "navigation": {
     "dashboard": "Home",
+    "mobile": "Mobile navigation",
+    "primary": "Primary navigation",
     "reminders": "Alerts",
     "settings": "Settings",
     "subscriptions": "Subs"

@@ -4,7 +4,8 @@
     "cancel": "Anulează",
     "close": "Închide",
     "filter": "Filtrează",
-    "notifications": "Notificări"
+    "notifications": "Notificări",
+    "skipToContent": "Sari la conținut"
   },
   "app": {
     "loading": "Se încarcă PayTrack",
@@ -46,6 +47,8 @@
   },
   "navigation": {
     "dashboard": "Acasă",
+    "mobile": "Navigare mobilă",
+    "primary": "Navigare principală",
     "reminders": "Alerte",
     "settings": "Setări",
     "subscriptions": "Abon."

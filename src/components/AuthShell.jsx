@@ -15,7 +15,7 @@ export default function AuthShell({
   const { t } = useTranslation();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-ink px-5 py-8 text-white">
+    <main className="flex min-h-screen items-center justify-center bg-ink px-5 py-8 text-white">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <p className="text-sm font-bold text-mint">PayTrack</p>
@@ -89,6 +89,6 @@ export default function AuthShell({
           </Link>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

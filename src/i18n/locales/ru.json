@@ -4,7 +4,8 @@
     "cancel": "Отмена",
     "close": "Закрыть",
     "filter": "Фильтр",
-    "notifications": "Уведомления"
+    "notifications": "Уведомления",
+    "skipToContent": "Перейти к содержимому"
   },
   "app": {
     "loading": "Загрузка PayTrack",
@@ -46,6 +47,8 @@
   },
   "navigation": {
     "dashboard": "Главная",
+    "mobile": "Мобильная навигация",
+    "primary": "Основная навигация",
     "reminders": "Оповещ.",
     "settings": "Настройки",
     "subscriptions": "Подписки"

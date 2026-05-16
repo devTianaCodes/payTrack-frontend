@@ -4,7 +4,8 @@
     "cancel": "Annuler",
     "close": "Fermer",
     "filter": "Filtrer",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "skipToContent": "Aller au contenu"
   },
   "app": {
     "loading": "Chargement de PayTrack",
@@ -46,6 +47,8 @@
   },
   "navigation": {
     "dashboard": "Accueil",
+    "mobile": "Navigation mobile",
+    "primary": "Navigation principale",
     "reminders": "Alertes",
     "settings": "Réglages",
     "subscriptions": "Abonn."

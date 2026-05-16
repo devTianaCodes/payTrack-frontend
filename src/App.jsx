@@ -15,6 +15,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-sage text-ink transition-colors dark:bg-slate-600 dark:text-slate-100">
+      <a className="skip-link" href="#main-content">
+        {t('actions.skipToContent')}
+      </a>
       <div className="mx-auto flex min-h-screen w-full max-w-7xl bg-mist shadow-soft transition-colors dark:bg-slate-500 lg:my-6 lg:min-h-[calc(100vh-3rem)] lg:overflow-hidden lg:rounded-[2rem]">
         <aside className="hidden w-72 flex-col border-r border-emerald-100 bg-white/85 px-5 py-6 transition-colors dark:border-slate-600 dark:bg-slate-700/80 md:flex">
           <div>
@@ -22,7 +25,7 @@ export default function App() {
             <h1 className="text-3xl font-black tracking-tight text-ink dark:text-white">{t('app.name')}</h1>
           </div>
 
-          <nav className="mt-8 space-y-2">
+          <nav className="mt-8 space-y-2" aria-label={t('navigation.primary')}>
             {navItems.map((item) => (
               <SidebarNavItem key={item.to} item={item} label={t(item.labelKey)} />
             ))}
@@ -47,11 +50,14 @@ export default function App() {
             </div>
           </header>
 
-          <main className="flex-1 px-5 py-5 md:px-8 md:py-8 lg:overflow-y-auto">
+          <main id="main-content" className="flex-1 px-5 py-5 md:px-8 md:py-8 lg:overflow-y-auto" tabIndex={-1}>
             <Outlet />
           </main>
 
-          <nav className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur transition-colors dark:border-slate-600 dark:bg-slate-500/95 md:hidden">
+          <nav
+            className="sticky bottom-0 border-t border-emerald-100 bg-mist/95 px-4 py-3 backdrop-blur transition-colors dark:border-slate-600 dark:bg-slate-500/95 md:hidden"
+            aria-label={t('navigation.mobile')}
+          >
             <div className="grid grid-cols-4 gap-2">
               {navItems.map((item) => (
                 <NavItem key={item.to} item={item} label={t(item.labelKey)} />
